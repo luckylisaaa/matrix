@@ -1,0 +1,3474 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ICS 8×14 選題作戰矩陣（112 格完整版）</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* 品牌主色系 */
+  --primary: #A51820;
+  --primary-deep: #7A1018;
+  --primary-bright: #C02030;
+
+  /* 背景 */
+  --bg: #FDFBF8;
+  --bg-card: #F4F1EC;
+  --bg-accent: #FAE8EA;
+  --bg-hero: #FDF3F4;
+
+  /* 文字 */
+  --text: #2A1A1C;
+  --text-2: #7A5A5E;
+  --text-3: #B09498;
+
+  /* 邊框 */
+  --line: #E8E3DA;
+
+  /* 功能色（對內用） */
+  --fn-yellow: #D4A017;
+  --fn-blue: #3A6B8F;
+  --fn-green: #4A7C59;
+  --fn-pink: #C44D6B;
+  --fn-orange: #D67438;
+  --fn-purple: #7A5A8E;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Noto Sans TC", -apple-system, sans-serif;
+  line-height: 1.75;
+  overflow-x: hidden;
+}
+.mono { font-family: "JetBrains Mono", monospace; }
+.serif { font-family: "Noto Serif TC", serif; }
+
+/* Layout */
+.wrap { max-width: 1440px; margin: 0 auto; padding: 48px 28px; }
+@media (max-width: 768px) { .wrap { padding: 28px 16px; } }
+
+/* Hero */
+.hero {
+  background: linear-gradient(135deg, var(--bg-hero) 0%, var(--bg) 100%);
+  text-align: center;
+  padding: 80px 24px 64px;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  top: -50%; right: -20%;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(165, 24, 32, 0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-inner { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; }
+.hero-badge {
+  display: inline-block;
+  background: var(--primary);
+  color: #fff;
+  padding: 6px 18px;
+  border-radius: 2px;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 3px;
+  margin-bottom: 24px;
+  font-family: "Noto Sans TC", sans-serif;
+}
+.hero h1 {
+  font-family: "Noto Serif TC", serif;
+  font-size: clamp(32px, 5.5vw, 56px);
+  font-weight: 900;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  color: var(--text);
+  letter-spacing: -0.5px;
+}
+.hero h1 .accent { color: var(--primary); }
+.hero h1 .x {
+  display: inline-block;
+  font-family: "Noto Serif TC", serif;
+  font-style: italic;
+  color: var(--primary-bright);
+  margin: 0 8px;
+  font-weight: 500;
+}
+.hero .sub {
+  color: var(--text-2);
+  font-size: clamp(15px, 1.8vw, 18px);
+  max-width: 720px;
+  margin: 0 auto 36px;
+  line-height: 1.8;
+}
+.hero .sub strong { color: var(--primary); font-weight: 700; }
+.hero-tagline {
+  font-family: "Noto Serif TC", serif;
+  font-style: italic;
+  color: var(--primary);
+  font-size: 18px;
+  margin-top: 8px;
+  letter-spacing: 1px;
+}
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 56px;
+  flex-wrap: wrap;
+  margin-top: 44px;
+  padding-top: 36px;
+  border-top: 1px solid var(--line);
+}
+.hero-stats .stat { text-align: center; }
+.hero-stats .stat-num {
+  font-family: "Noto Serif TC", serif;
+  font-size: 42px;
+  font-weight: 900;
+  color: var(--primary);
+  line-height: 1;
+}
+.hero-stats .stat-label {
+  font-size: 11px;
+  color: var(--text-2);
+  letter-spacing: 2.5px;
+  margin-top: 8px;
+  text-transform: uppercase;
+}
+
+/* Section titles */
+.section-title {
+  font-family: "Noto Serif TC", serif;
+  font-size: 28px;
+  font-weight: 900;
+  margin: 64px 0 8px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.section-title::before {
+  content: "";
+  display: inline-block;
+  width: 40px;
+  height: 3px;
+  background: var(--primary);
+}
+.section-sub {
+  color: var(--text-2);
+  font-size: 15px;
+  margin-bottom: 28px;
+  padding-left: 56px;
+}
+
+/* Fusion panel */
+.fusion {
+  background: var(--bg-card);
+  border-radius: 4px;
+  padding: 36px;
+  margin-bottom: 56px;
+  border-left: 4px solid var(--primary);
+}
+.fusion h2 {
+  font-family: "Noto Serif TC", serif;
+  font-size: 22px;
+  margin-bottom: 8px;
+  color: var(--primary);
+}
+.fusion .why {
+  color: var(--text-2);
+  font-size: 14px;
+  margin-bottom: 24px;
+  line-height: 1.8;
+}
+.fusion-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+  margin-top: 20px;
+}
+.fusion-card {
+  background: var(--bg);
+  padding: 18px;
+  border-radius: 3px;
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--primary);
+}
+.fusion-card .name {
+  font-family: "Noto Serif TC", serif;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 8px;
+  font-size: 15px;
+}
+.fusion-card .role {
+  font-size: 11px;
+  color: var(--text-3);
+  letter-spacing: 1.5px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+.fusion-card .desc {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.7;
+}
+
+/* Matrix overview table */
+.matrix-wrap {
+  overflow-x: auto;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 20px;
+  margin-bottom: 56px;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+}
+.matrix-wrap::after {
+  content: "→ 手機可左右滑動查看完整矩陣";
+  display: block;
+  font-size: 11px;
+  color: var(--text-3);
+  margin-top: 12px;
+  text-align: center;
+  letter-spacing: 1px;
+}
+@media (min-width: 900px) {
+  .matrix-wrap::after { display: none; }
+}
+.matrix {
+  width: 100%;
+  min-width: 1100px;
+  border-collapse: separate;
+  border-spacing: 4px;
+  font-size: 12px;
+}
+.matrix th, .matrix td {
+  padding: 10px 4px;
+  text-align: center;
+  border-radius: 2px;
+}
+.matrix th.row-head {
+  background: var(--primary);
+  color: #fff;
+  font-family: "Noto Serif TC", serif;
+  font-weight: 700;
+  font-size: 14px;
+  min-width: 86px;
+  letter-spacing: 1.5px;
+  writing-mode: horizontal-tb;
+}
+.matrix th.col-head {
+  background: var(--bg-accent);
+  color: var(--primary-deep);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  padding: 8px 4px;
+}
+.matrix th.col-cat {
+  background: transparent;
+  color: var(--text-3);
+  font-size: 10px;
+  letter-spacing: 2px;
+  font-weight: 500;
+  padding: 4px;
+  text-transform: uppercase;
+}
+.matrix th.empty { background: transparent; }
+.matrix td.cell {
+  background: var(--bg-card);
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+  font-size: 11px;
+  line-height: 1.45;
+  min-height: 56px;
+  vertical-align: middle;
+  position: relative;
+}
+.matrix td.cell:hover {
+  background: var(--primary);
+  color: #fff;
+  transform: scale(1.06);
+  z-index: 2;
+  box-shadow: 0 8px 18px rgba(165, 24, 32, 0.2);
+}
+.matrix td.cell .id {
+  font-family: "JetBrains Mono", monospace;
+  display: block;
+  font-size: 9px;
+  color: var(--text-3);
+  margin-bottom: 2px;
+  letter-spacing: 0.5px;
+}
+.matrix td.cell:hover .id { color: rgba(255,255,255,0.75); }
+.matrix td.cell.star {
+  background: var(--bg-accent);
+  color: var(--primary-deep);
+  font-weight: 600;
+}
+.matrix td.cell.star::after {
+  content: "★";
+  color: var(--primary);
+  margin-left: 3px;
+  font-size: 10px;
+}
+.matrix td.cell.star:hover::after { color: #fff; }
+
+/* Legend */
+.legend {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  margin-top: 16px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  color: var(--text-2);
+}
+.legend-item { display: flex; align-items: center; gap: 6px; }
+.legend-box {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 2px;
+  border: 1px solid var(--line);
+}
+
+/* Battle cards */
+.container-head {
+  margin: 72px 0 20px;
+  padding: 24px 28px;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--primary-deep) 100%);
+  color: #fff;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.container-head .num {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 44px;
+  font-weight: 900;
+  line-height: 1;
+  opacity: 0.4;
+}
+.container-head .info { flex: 1; min-width: 200px; }
+.container-head .title {
+  font-family: "Noto Serif TC", serif;
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  margin-bottom: 4px;
+}
+.container-head .subtitle {
+  font-size: 13px;
+  opacity: 0.85;
+  letter-spacing: 1px;
+}
+.container-head .count {
+  background: rgba(255,255,255,0.15);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  backdrop-filter: blur(10px);
+}
+
+.cards-grid {
+  display: grid;
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.card {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 0;
+  overflow: hidden;
+  transition: all 0.25s;
+}
+.card:hover {
+  border-color: var(--primary);
+  box-shadow: 0 12px 28px rgba(165, 24, 32, 0.08);
+  transform: translateY(-2px);
+}
+.card.flagship {
+  border-left: 4px solid var(--primary);
+  background: linear-gradient(135deg, var(--bg-hero) 0%, var(--bg) 30%);
+}
+.card-head {
+  padding: 20px 24px;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.card.flagship .card-head {
+  background: var(--bg-accent);
+}
+.card-id {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  color: var(--primary);
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 4px;
+}
+.card-title {
+  font-family: "Noto Serif TC", serif;
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--text);
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+.card-title .x {
+  color: var(--primary);
+  font-style: italic;
+  font-weight: 500;
+  margin: 0 6px;
+}
+.card-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.tag {
+  background: var(--bg);
+  color: var(--text-2);
+  padding: 3px 10px;
+  border-radius: 2px;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  border: 1px solid var(--line);
+}
+.tag.goal { background: var(--primary); color: #fff; border-color: var(--primary); }
+.tag.flag { background: var(--bg-accent); color: var(--primary-deep); border-color: var(--bg-accent); font-weight: 700; }
+
+.card-body { padding: 24px 28px; }
+
+.layer {
+  margin-bottom: 18px;
+  padding-bottom: 18px;
+  border-bottom: 1px dashed var(--line);
+}
+.layer:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.layer-label {
+  display: inline-block;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--primary);
+  background: var(--bg-accent);
+  padding: 3px 8px;
+  border-radius: 2px;
+  margin-right: 8px;
+  letter-spacing: 1px;
+  vertical-align: middle;
+}
+.layer-title {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text);
+  display: inline;
+}
+.layer-content {
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.8;
+}
+.layer-content .ex {
+  color: var(--text-2);
+  font-style: italic;
+  display: block;
+  margin-top: 4px;
+  font-size: 13px;
+}
+.layer-content .hook {
+  display: block;
+  background: var(--bg-hero);
+  border-left: 3px solid var(--primary);
+  padding: 10px 14px;
+  margin: 8px 0;
+  font-family: "Noto Serif TC", serif;
+  font-size: 15px;
+  color: var(--primary-deep);
+  border-radius: 0 2px 2px 0;
+}
+.layer-content ul { list-style: none; padding: 0; }
+.layer-content ul li {
+  padding: 4px 0 4px 18px;
+  position: relative;
+}
+.layer-content ul li::before {
+  content: "✦";
+  position: absolute;
+  left: 0;
+  color: var(--primary);
+}
+
+/* Fusion stack within card */
+.fusion-stack {
+  background: var(--bg-card);
+  padding: 16px;
+  border-radius: 3px;
+  margin-top: 10px;
+  display: grid;
+  gap: 10px;
+}
+.fusion-row {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 12px;
+  align-items: baseline;
+  font-size: 13px;
+}
+.fusion-row .who {
+  font-family: "Noto Serif TC", serif;
+  font-size: 12px;
+  color: var(--primary);
+  font-weight: 700;
+  text-align: right;
+  letter-spacing: 0.5px;
+}
+.fusion-row .what { color: var(--text); line-height: 1.7; }
+@media (max-width: 600px) {
+  .fusion-row { grid-template-columns: 1fr; gap: 4px; }
+  .fusion-row .who { text-align: left; }
+}
+
+/* Examples */
+.examples {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 10px;
+  margin-top: 8px;
+}
+.example {
+  background: var(--bg-card);
+  padding: 12px 14px;
+  border-radius: 3px;
+  font-size: 13px;
+  line-height: 1.6;
+  border-left: 2px solid var(--primary-bright);
+}
+.example .who {
+  font-size: 11px;
+  color: var(--primary);
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+
+/* KPI block */
+.kpi-block {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+  margin-top: 8px;
+}
+.kpi-item {
+  background: var(--bg-hero);
+  padding: 12px 14px;
+  border-radius: 3px;
+  font-size: 13px;
+  border: 1px solid var(--bg-accent);
+}
+.kpi-item .k {
+  font-size: 10px;
+  color: var(--text-2);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+.kpi-item .v {
+  font-weight: 700;
+  color: var(--primary-deep);
+  font-size: 14px;
+}
+
+/* Trap / warning */
+.trap {
+  background: #FEF3F2;
+  border-left: 3px solid var(--fn-orange);
+  padding: 10px 14px;
+  border-radius: 0 2px 2px 0;
+  font-size: 13px;
+  color: var(--text);
+  margin-top: 8px;
+}
+.trap .t { font-weight: 700; color: var(--fn-orange); margin-right: 6px; }
+
+/* Prompt block */
+.prompt-block {
+  background: var(--text);
+  color: #fff;
+  border-radius: 4px;
+  padding: 16px 18px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  line-height: 1.7;
+  margin-top: 10px;
+  position: relative;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.prompt-block .copy-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 2px;
+  font-family: "Noto Sans TC", sans-serif;
+  font-size: 11px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: background 0.2s;
+}
+.prompt-block .copy-btn:hover { background: var(--primary-bright); }
+.prompt-block .copy-btn.copied { background: var(--fn-green); }
+
+/* CAIO reflection */
+.reflection {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.reflection .q {
+  background: var(--bg-card);
+  padding: 8px 12px;
+  border-radius: 2px;
+  font-size: 12px;
+  color: var(--text);
+  border: 1px solid var(--line);
+}
+.reflection .q strong { color: var(--primary); margin-right: 4px; }
+
+/* Nav sticky */
+.nav-sticky {
+  position: sticky;
+  top: 0;
+  background: rgba(253, 251, 248, 0.95);
+  backdrop-filter: blur(10px);
+  z-index: 10;
+  border-bottom: 1px solid var(--line);
+  padding: 12px 0;
+  margin: 32px -28px 0;
+}
+.nav-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 28px;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.nav-btn {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--text-2);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  display: inline-block;
+}
+.nav-btn:hover, .nav-btn.active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 64px 24px 32px;
+  color: var(--text-3);
+  font-size: 12px;
+  letter-spacing: 1px;
+  border-top: 1px solid var(--line);
+  margin-top: 80px;
+}
+.footer .brand {
+  font-family: "Noto Serif TC", serif;
+  color: var(--primary);
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  letter-spacing: 3px;
+}
+
+/* Progress badge */
+.progress-badge {
+  display: inline-block;
+  background: var(--bg-accent);
+  color: var(--primary-deep);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  letter-spacing: 1px;
+  margin-left: 8px;
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">INSPIRE · CREATE · SHINE</div>
+    <h1>8 <span class="x">×</span> 14 選題作戰矩陣<br><span class="accent">112 格完整版</span></h1>
+    <div class="sub">
+      融合 <strong>極致留存 · 情緒標題 · 高客單轉化 · 品牌整合 · 結構化顧問 · 真實對話 · 極度求真</strong> 七派頂尖方法論<br>
+      每一格都是一張完整作戰卡，接通 CAIO 系統 × 腳本產生器 × 合作目標 KPI
+    </div>
+    <div class="hero-tagline">Inspire. Create. Shine.</div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">8</div><div class="stat-label">內容容器</div></div>
+      <div class="stat"><div class="stat-num">14</div><div class="stat-label">流量觸發器</div></div>
+      <div class="stat"><div class="stat-num">112</div><div class="stat-label">作戰卡</div></div>
+      <div class="stat"><div class="stat-num">7</div><div class="stat-label">派別融合</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- 導覽列 -->
+<div class="nav-sticky">
+  <div class="nav-inner">
+    <a href="#fusion" class="nav-btn">🌐 方法論融合</a>
+    <a href="#matrix" class="nav-btn">🎯 矩陣總覽</a>
+    <a href="#c1" class="nav-btn">① 曬過程</a>
+    <a href="#c2" class="nav-btn">② 說故事</a>
+    <a href="#c3" class="nav-btn">③ 選立場</a>
+    <a href="#c4" class="nav-btn">④ 教知識</a>
+    <a href="#c5" class="nav-btn">⑤ 熬情緒</a>
+    <a href="#c6" class="nav-btn">⑥ 演劇情</a>
+    <a href="#c7" class="nav-btn">⑦ 賣產品</a>
+    <a href="#c8" class="nav-btn">⑧ 破圈挑戰 ★</a>
+  </div>
+</div>
+
+<!-- 方法論融合區 -->
+<h2 class="section-title" id="fusion">世界頂尖方法論・七派融合</h2>
+<p class="section-sub">每一張作戰卡都會同時疊加這七派的視角，這是別人矩陣做不到的深度</p>
+
+<div class="fusion">
+  <h2>為什麼要融合七派？</h2>
+  <p class="why">
+    市面上的選題矩陣（例如抖音課的 7×11）只告訴你「拍什麼類型 × 用什麼鉤子」，但沒告訴你<strong style="color:var(--primary)">為什麼這樣會有效</strong>。<br>
+    真正的頂尖做法，是同時用七個世界級視角去檢視每一格：留存派管完播、標題派管情緒、轉化派管客單、品牌派管核心、結構派管邏輯、真實派管溫度、求真派管底氣。
+  </p>
+  <div class="fusion-grid">
+    <div class="fusion-card">
+      <div class="role">內容派 / 留存</div>
+      <div class="name">極致留存派</div>
+      <div class="desc">前 3 秒強烈鉤子、零廢話、極致完播。每支影片都要過「能不能撐到最後」這關。</div>
+    </div>
+    <div class="fusion-card">
+      <div class="role">內容派 / 情緒</div>
+      <div class="name">情緒標題派</div>
+      <div class="desc">標題公式（反差 / 數字 / 點名 / 共鳴）+ 情緒關鍵字（救命、寶藏、血淚史、真香）。</div>
+    </div>
+    <div class="fusion-card">
+      <div class="role">行銷派 / 轉化</div>
+      <div class="name">高客單轉化派</div>
+      <div class="desc">高客單轉化邏輯，把「想要」變「非買不可」。價值方程式 × 零風險承諾。</div>
+    </div>
+    <div class="fusion-card">
+      <div class="role">行銷派 / 品牌</div>
+      <div class="name">品牌整合派</div>
+      <div class="desc">創意必須和品牌核心強綁定，不是自嗨。Big Idea 不能脫離品牌本質。</div>
+    </div>
+    <div class="fusion-card">
+      <div class="role">戰略派 / 結構</div>
+      <div class="name">結構化顧問派</div>
+      <div class="desc">MECE 結構化拆解產業痛點，商業洞察優先，邏輯鏈清楚。</div>
+    </div>
+    <div class="fusion-card">
+      <div class="role">戰略派 / 真實</div>
+      <div class="name">真實對話派</div>
+      <div class="desc">真實對話感，建立長期信任。不演、不裝、不照稿念。</div>
+    </div>
+    <div class="fusion-card">
+      <div class="role">戰略派 / 求真</div>
+      <div class="name">極度求真派</div>
+      <div class="desc">極度求真，不說教不虛假。敢講別人不敢講的真相，才有可信度。</div>
+    </div>
+    <div class="fusion-card" style="border-top-color: var(--primary-bright); background: var(--bg-hero);">
+      <div class="role">台灣在地加成</div>
+      <div class="name">在地口語派</div>
+      <div class="desc">閨蜜好友視角、溫暖直白、大白話。瓦解觀眾防禦心。台灣受眾三秒要有感覺。</div>
+    </div>
+  </div>
+</div>
+
+<!-- 矩陣總覽 -->
+<h2 class="section-title" id="matrix">8 × 14 矩陣總覽</h2>
+<p class="section-sub">點擊任一格跳到對應作戰卡。★ 符號代表你的獨家格，是對方那張表沒有的</p>
+
+<div class="matrix-wrap">
+<table class="matrix">
+<thead>
+<tr>
+  <th class="empty"></th>
+  <th class="col-cat" colspan="3">認知衝突</th>
+  <th class="col-cat" colspan="3">利益直給</th>
+  <th class="col-cat" colspan="3">社交貨幣</th>
+  <th class="col-cat" colspan="3">互動驅動</th>
+  <th class="col-cat" colspan="2">情緒扳機 ★</th>
+</tr>
+<tr>
+  <th class="empty"></th>
+  <th class="col-head">反差</th>
+  <th class="col-head">吐槽</th>
+  <th class="col-head">貼金</th>
+  <th class="col-head">成本</th>
+  <th class="col-head">乾貨 ★</th>
+  <th class="col-head">光練不說</th>
+  <th class="col-head">熱點</th>
+  <th class="col-head">懷舊</th>
+  <th class="col-head">賀爾蒙</th>
+  <th class="col-head">互動</th>
+  <th class="col-head">隨機</th>
+  <th class="col-head">受眾鎖定</th>
+  <th class="col-head">窺私慾 ★</th>
+  <th class="col-head">FOMO ★</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <th class="row-head">① 曬過程</th>
+  <td class="cell" onclick="location.href='#card-1-1'"><span class="id">1-1</span>拆盲盒</td>
+  <td class="cell" onclick="location.href='#card-1-2'"><span class="id">1-2</span>吐糟流程</td>
+  <td class="cell" onclick="location.href='#card-1-3'"><span class="id">1-3</span>大製作</td>
+  <td class="cell" onclick="location.href='#card-1-4'"><span class="id">1-4</span>成本曝光</td>
+  <td class="cell" onclick="location.href='#card-1-5'"><span class="id">1-5</span>拆解SOP</td>
+  <td class="cell" onclick="location.href='#card-1-6'"><span class="id">1-6</span>默默做</td>
+  <td class="cell" onclick="location.href='#card-1-7'"><span class="id">1-7</span>蹭話題</td>
+  <td class="cell" onclick="location.href='#card-1-8'"><span class="id">1-8</span>老物重做</td>
+  <td class="cell" onclick="location.href='#card-1-9'"><span class="id">1-9</span>反差美</td>
+  <td class="cell" onclick="location.href='#card-1-10'"><span class="id">1-10</span>投票選</td>
+  <td class="cell" onclick="location.href='#card-1-11'"><span class="id">1-11</span>隨機挑</td>
+  <td class="cell" onclick="location.href='#card-1-12'"><span class="id">1-12</span>點名對</td>
+  <td class="cell star" onclick="location.href='#card-1-13'"><span class="id">1-13</span>偷看</td>
+  <td class="cell star" onclick="location.href='#card-1-14'"><span class="id">1-14</span>最後一次</td>
+</tr>
+<tr>
+  <th class="row-head">② 說故事</th>
+  <td class="cell" onclick="location.href='#card-2-1'"><span class="id">2-1</span>打臉成功</td>
+  <td class="cell" onclick="location.href='#card-2-2'"><span class="id">2-2</span>我真的氣</td>
+  <td class="cell" onclick="location.href='#card-2-3'"><span class="id">2-3</span>高光時刻</td>
+  <td class="cell" onclick="location.href='#card-2-4'"><span class="id">2-4</span>賠錢故事</td>
+  <td class="cell" onclick="location.href='#card-2-5'"><span class="id">2-5</span>血淚教訓</td>
+  <td class="cell" onclick="location.href='#card-2-6'"><span class="id">2-6</span>不說</td>
+  <td class="cell" onclick="location.href='#card-2-7'"><span class="id">2-7</span>時事親歷</td>
+  <td class="cell" onclick="location.href='#card-2-8'"><span class="id">2-8</span>那年的我</td>
+  <td class="cell" onclick="location.href='#card-2-9'"><span class="id">2-9</span>心動瞬間</td>
+  <td class="cell" onclick="location.href='#card-2-10'"><span class="id">2-10</span>猜結局</td>
+  <td class="cell" onclick="location.href='#card-2-11'"><span class="id">2-11</span>巧遇</td>
+  <td class="cell" onclick="location.href='#card-2-12'"><span class="id">2-12</span>你也是嗎</td>
+  <td class="cell star" onclick="location.href='#card-2-13'"><span class="id">2-13</span>私密經歷</td>
+  <td class="cell star" onclick="location.href='#card-2-14'"><span class="id">2-14</span>再一次</td>
+</tr>
+<tr>
+  <th class="row-head">③ 選立場</th>
+  <td class="cell"><span class="id">3-1</span>反潮流</td>
+  <td class="cell"><span class="id">3-2</span>產業吐槽</td>
+  <td class="cell"><span class="id">3-3</span>硬槓大咖</td>
+  <td class="cell"><span class="id">3-4</span>真實成本</td>
+  <td class="cell"><span class="id">3-5</span>立場乾貨</td>
+  <td class="cell"><span class="id">3-6</span>沉默派</td>
+  <td class="cell"><span class="id">3-7</span>熱點表態</td>
+  <td class="cell"><span class="id">3-8</span>老派堅持</td>
+  <td class="cell"><span class="id">3-9</span>剛烈派</td>
+  <td class="cell"><span class="id">3-10</span>你選哪邊</td>
+  <td class="cell"><span class="id">3-11</span>隨機真話</td>
+  <td class="cell"><span class="id">3-12</span>對誰說</td>
+  <td class="cell star"><span class="id">3-13</span>禁忌話題</td>
+  <td class="cell star"><span class="id">3-14</span>再不說就晚</td>
+</tr>
+<tr>
+  <th class="row-head">④ 教知識</th>
+  <td class="cell"><span class="id">4-1</span>打破迷思</td>
+  <td class="cell"><span class="id">4-2</span>業內黑幕</td>
+  <td class="cell"><span class="id">4-3</span>專家證言</td>
+  <td class="cell"><span class="id">4-4</span>省錢知識</td>
+  <td class="cell"><span class="id">4-5</span>硬核乾貨</td>
+  <td class="cell"><span class="id">4-6</span>不教的</td>
+  <td class="cell"><span class="id">4-7</span>時事解讀</td>
+  <td class="cell"><span class="id">4-8</span>老知識翻新</td>
+  <td class="cell"><span class="id">4-9</span>吸睛科普</td>
+  <td class="cell"><span class="id">4-10</span>問你一題</td>
+  <td class="cell"><span class="id">4-11</span>隨手教</td>
+  <td class="cell"><span class="id">4-12</span>為誰而寫</td>
+  <td class="cell star"><span class="id">4-13</span>內部資訊</td>
+  <td class="cell star"><span class="id">4-14</span>再不學就晚</td>
+</tr>
+<tr>
+  <th class="row-head">⑤ 熬情緒</th>
+  <td class="cell"><span class="id">5-1</span>人生反轉</td>
+  <td class="cell"><span class="id">5-2</span>嘴砲自嘲</td>
+  <td class="cell"><span class="id">5-3</span>逆襲故事</td>
+  <td class="cell"><span class="id">5-4</span>代價</td>
+  <td class="cell"><span class="id">5-5</span>成長乾貨</td>
+  <td class="cell"><span class="id">5-6</span>沉默力量</td>
+  <td class="cell"><span class="id">5-7</span>集體情緒</td>
+  <td class="cell"><span class="id">5-8</span>回憶殺</td>
+  <td class="cell"><span class="id">5-9</span>感動落淚</td>
+  <td class="cell"><span class="id">5-10</span>情緒共鳴</td>
+  <td class="cell"><span class="id">5-11</span>隨機治癒</td>
+  <td class="cell"><span class="id">5-12</span>寫給你</td>
+  <td class="cell star"><span class="id">5-13</span>不敢說</td>
+  <td class="cell star"><span class="id">5-14</span>人生倒數</td>
+</tr>
+<tr>
+  <th class="row-head">⑥ 演劇情</th>
+  <td class="cell"><span class="id">6-1</span>反轉短劇</td>
+  <td class="cell"><span class="id">6-2</span>職場吐槽劇</td>
+  <td class="cell"><span class="id">6-3</span>精品劇</td>
+  <td class="cell"><span class="id">6-4</span>窮酸劇</td>
+  <td class="cell"><span class="id">6-5</span>知識短劇</td>
+  <td class="cell"><span class="id">6-6</span>默劇</td>
+  <td class="cell"><span class="id">6-7</span>時事短劇</td>
+  <td class="cell"><span class="id">6-8</span>復古劇</td>
+  <td class="cell"><span class="id">6-9</span>曖昧劇</td>
+  <td class="cell"><span class="id">6-10</span>互動選劇</td>
+  <td class="cell"><span class="id">6-11</span>隨機情境</td>
+  <td class="cell"><span class="id">6-12</span>角色鎖定</td>
+  <td class="cell star"><span class="id">6-13</span>偷窺視角</td>
+  <td class="cell star"><span class="id">6-14</span>結局倒數</td>
+</tr>
+<tr>
+  <th class="row-head">⑦ 賣產品</th>
+  <td class="cell"><span class="id">7-1</span>反向推薦</td>
+  <td class="cell"><span class="id">7-2</span>吐槽同業</td>
+  <td class="cell"><span class="id">7-3</span>高端體驗</td>
+  <td class="cell"><span class="id">7-4</span>CP值王</td>
+  <td class="cell"><span class="id">7-5</span>服務乾貨</td>
+  <td class="cell"><span class="id">7-6</span>成品呈現</td>
+  <td class="cell"><span class="id">7-7</span>熱點聯動</td>
+  <td class="cell"><span class="id">7-8</span>經典回歸</td>
+  <td class="cell"><span class="id">7-9</span>美感視覺</td>
+  <td class="cell"><span class="id">7-10</span>限時詢問</td>
+  <td class="cell"><span class="id">7-11</span>抽獎</td>
+  <td class="cell"><span class="id">7-12</span>對號入座</td>
+  <td class="cell star"><span class="id">7-13</span>VIP專屬</td>
+  <td class="cell star"><span class="id">7-14</span>最後名額</td>
+</tr>
+<tr>
+  <th class="row-head">⑧ 破圈挑戰 ★</th>
+  <td class="cell star"><span class="id">8-1</span>極端對比</td>
+  <td class="cell star"><span class="id">8-2</span>挑戰吐槽</td>
+  <td class="cell star"><span class="id">8-3</span>大預算賭</td>
+  <td class="cell star"><span class="id">8-4</span>金錢挑戰</td>
+  <td class="cell star"><span class="id">8-5</span>挑戰乾貨</td>
+  <td class="cell star"><span class="id">8-6</span>閉關挑戰</td>
+  <td class="cell star"><span class="id">8-7</span>熱點挑戰</td>
+  <td class="cell star"><span class="id">8-8</span>重現經典</td>
+  <td class="cell star"><span class="id">8-9</span>極限衝擊</td>
+  <td class="cell star"><span class="id">8-10</span>觀眾指令</td>
+  <td class="cell star"><span class="id">8-11</span>隨機任務</td>
+  <td class="cell star"><span class="id">8-12</span>為你挑戰</td>
+  <td class="cell star"><span class="id">8-13</span>秘密挑戰</td>
+  <td class="cell star"><span class="id">8-14</span>倒數挑戰</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><span class="legend-box" style="background: var(--bg-card)"></span>標準格</div>
+  <div class="legend-item"><span class="legend-box" style="background: var(--bg-accent)"></span>★ 你的獨家格（對方沒有）</div>
+  <div class="legend-item"><span class="legend-box" style="background: var(--primary)"></span>滑鼠移過</div>
+</div>
+
+<!-- 容器 ① 曬過程 -->
+<div class="container-head" id="c1">
+  <div class="num">01</div>
+  <div class="info">
+    <div class="title">曬過程｜Behind the Scenes</div>
+    <div class="subtitle">真實感建立信任 · 讓觀眾「看到你在做」比「聽你說你在做」更有力</div>
+  </div>
+  <div class="count">14 格作戰卡</div>
+</div>
+
+<div class="cards-grid">
+
+<!-- 1-1 曬過程 × 反差 -->
+<div class="card flagship" id="card-1-1">
+  <div class="card-head">
+    <div>
+      <div class="card-id">CARD 1-1</div>
+      <div class="card-title">曬過程 <span class="x">×</span> 反差</div>
+      <div class="card-tags">
+        <span class="tag flag">★ 旗艦格</span>
+        <span class="tag goal">目標 05 建立信任</span>
+        <span class="tag">認知衝突</span>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <div class="layer">
+      <span class="layer-label">L1</span><span class="layer-title">心理機制（極度求真派：極度求真）</span>
+      <div class="layer-content">
+        觀眾看到「你以為的 vs 實際的」的巨大落差，大腦會釋放「我被騙了這麼久」的驚訝感。這種驚訝會觸發兩個動作：想繼續看 + 想分享給朋友。反差越真實、越具體、越有視覺衝擊力，效果越強。
+      </div>
+    </div>
+
+    <div class="layer">
+      <span class="layer-label">L2</span><span class="layer-title">極致留存派・鉤子結構</span>
+      <div class="layer-content">
+        結構：<strong>狀態A →（強烈反差）→ 狀態B</strong>。前 0.5 秒直接放對比畫面（不要先自我介紹），字幕大字強調反差點，用對比剪輯（跳接）而非慢慢過渡。
+        <div class="hook">「這是你看到的 IG 律師。<br>這是他真正在做的事。」<br>（配合：光鮮的出庭照 → 深夜啃卷宗的疲態）</div>
+      </div>
+    </div>
+
+    <div class="layer">
+      <span class="layer-label">L3</span><span class="layer-title">情緒標題派・標題公式 + 情緒關鍵字</span>
+      <div class="layer-content">
+        公式：<strong>「你以為 X，其實 Y」</strong> / <strong>「XX 背後真相」</strong> / <strong>「別再被騙了」</strong>。
+        <div class="examples">
+          <div class="example">
+            <div class="who">律師 / 醫師</div>
+            你以為的「律師開庭」，其實 90% 時間在做這件事｜揭秘
+          </div>
+          <div class="example">
+            <div class="who">電商 / 餐飲</div>
+            你以為這包麵很便宜，看完製作過程你會哭｜真的血淚
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="layer">
+      <span class="layer-label">L4</span><span class="layer-title">七派融合思考</span>
+      <div class="fusion-stack">
+        <div class="fusion-row"><div class="who">高客單轉化派</div><div class="what">反差越大 → 觀眾「認知缺口」越大 → 想填補 → 主動追蹤 / 私訊。轉化路徑：反差震驚 → 好奇 → CTA 預約。</div></div>
+        <div class="fusion-row"><div class="who">品牌整合派</div><div class="what">反差必須綁定品牌核心。律師就做「專業反差」不做「搞笑反差」。反差是手段，不是目的。</div></div>
+        <div class="fusion-row"><div class="who">結構化顧問派</div><div class="what">MECE 拆解：反差點 = 表象層 + 內在層 + 後果層。每層各給一個具體例子，結構化說服。</div></div>
+        <div class="fusion-row"><div class="who">真實對話派</div><div class="what">不要擺拍反差，要真實發生。假的反差一看就出戲，真實的反差才會留下記憶點。</div></div>
+        <div class="fusion-row"><div class="who">在地口語派</div><div class="what">「欸欸欸，跟你說一件事喔」「你知道嗎，這件事跟你想的不一樣」——用閨蜜語氣破防。</div></div>
+      </div>
+    </div>
+
+    <div class="layer">
+      <span class="layer-label">L5</span><span class="layer-title">對應合作目標 + 核心 KPI</span>
+      <div class="kpi-block">
+        <div class="kpi-item"><div class="k">主目標</div><div class="v">05 建立專業信任感</div></div>
+        <div class="kpi-item"><div class="k">副目標</div><div class="v">01 品牌曝光</div></div>
+        <div class="kpi-item"><div class="k">核心 KPI</div><div class="v">收藏率 5%+｜完播 40%+</div></div>
+        <div class="kpi-item"><div class="k">CTA</div><div class="v">追蹤我看產業真相</div></div>
+      </div>
+    </div>
+
+    <div class="layer">
+      <span class="layer-label">L6</span><span class="layer-title">三個產業範例題目</span>
+      <div class="examples">
+        <div class="example"><div class="who">律師（理鴻）</div>律師收到法院傳票的第一件事，不是你想的那樣</div>
+        <div class="example"><div class="who">生醫（喜躍）</div>你以為細胞保存是冰箱冰一下，實際上要做這 7 件事</div>
+        <div class="example"><div class="who">電商 / 餐飲</div>你以為這杯 150 元很貴，但你沒看到原料成本是 80 元</div>
+      </div>
+    </div>
+
+    <div class="layer">
+      <span class="layer-label">L7</span><span class="layer-title">CAIO 輸出前反問清單</span>
+      <div class="reflection">
+        <div class="q"><strong>結構化顧問派：</strong>反差點夠深嗎？只在表面嗎？</div>
+        <div class="q"><strong>品牌整合派：</strong>反差綁定品牌核心了嗎？</div>
+        <div class="q"><strong>執行長：</strong>台灣受眾 3 秒能 get 到嗎？</div>
+      </div>
+    </div>
+
+    <div class="layer">
+      <span class="layer-label">L8</span><span class="layer-title">踩雷警告</span>
+      <div class="trap">
+        <span class="t">⚠ 坑 1：</span>為反差而反差，反差點跟品牌無關（例：律師硬演跳舞）→ 觀眾會覺得你在搞笑，不會買單你的專業。
+      </div>
+      <div class="trap">
+        <span class="t">⚠ 坑 2：</span>反差太假，看起來像擺拍 → 反而扣信任分。真實的反差才有力。
+      </div>
+      <div class="trap">
+        <span class="t">⚠ 坑 3：</span>醫療客戶用反差講療效（例：「你以為治不好，其實我治好了」）→ 違反醫療廣告法。
+      </div>
+    </div>
+
+    <div class="layer">
+      <span class="layer-label">L9</span><span class="layer-title">一鍵複製：CAIO 生腳本提示詞</span>
+      <div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>【任務：曬過程 × 反差 腳本】
+客戶：【填入：例 理鴻法律事務所】
+產業：【填入：例 商業法律】
+主角：【填入：例 郭柏鴻律師】
+反差點：【填入：例 IG光鮮形象 vs 深夜啃卷宗】
+長度：【30秒 / 45秒 / 60秒】
+
+請依「曬過程 × 反差」作戰卡產出腳本：
+① 前3秒：狀態A畫面 + 反差對比字幕，直接跳接狀態B
+② 中段：拆解反差背後的「表象 / 內在 / 後果」三層
+③ 結尾 CTA：追蹤我看產業真相
+④ 反差必須綁定品牌核心（不是為反差而反差）
+⑤ 台灣口語，閨蜜語氣開場
+⑥ 自動過 CAIO 三反問：產業痛點夠深？創意綁定品牌？三秒有感？
+⑦ 醫療客戶自動避開療效宣稱
+
+輸出格式：
+- 分段字幕稿（含秒數）
+- 畫面描述（含運鏡）
+- 剪輯節奏提示</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 1-2 曬過程 × 吐槽 -->
+<div class="card" id="card-1-2">
+  <div class="card-head">
+    <div>
+      <div class="card-id">CARD 1-2</div>
+      <div class="card-title">曬過程 <span class="x">×</span> 吐槽</div>
+      <div class="card-tags">
+        <span class="tag goal">目標 03 建立IP</span>
+        <span class="tag">認知衝突</span>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <div class="layer">
+      <span class="layer-label">L1</span><span class="layer-title">心理機制（極度求真派：求真不虛假）</span>
+      <div class="layer-content">
+        在流程中吐槽產業亂象或自己的日常，讓觀眾覺得「這個人敢講真話，不是在演」。吐槽是最快瓦解防禦心的方式——因為觀眾天生討厭官腔。
+      </div>
+    </div>
+
+    <div class="layer">
+      <span class="layer-label">L2</span><span class="layer-title">極致留存派・鉤子結構</span>
+      <div class="layer-content">
+        結構：<strong>痛點直擊 + 反問</strong>。前 3 秒不要鋪陳，直接甩一句「你有沒有遇過這種鳥事」。
+        <div class="hook">「拍片第三天，我又要吐槽一次：<br>為什麼客戶總是最後一刻改腳本？」</div>
+      </div>
+    </div>
+
+    <div class="layer">
+      <span class="layer-label">L3</span><span class="layer-title">情緒標題派・標題公式</span>
+      <div class="layer-content">
+        公式：<strong>「受夠了」「我真的崩潰」「拜託不要再」</strong>。情緒詞要直接：崩潰、爆氣、受不了、我哭死。
+        <div class="examples">
+          <div class="example">
+            <div class="who">B2B 服務業</div>
+            受夠了客戶這三種需求，每次聽到我都想離職
+          </div>
+          <div class="example">
+            <div class="who">餐飲 / 電商</div>
+            拜託客人不要再問這五個問題，我真的答到崩潰
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="layer">
+      <span class="layer-label">L4</span><span class="layer-title">七派融合思考</span>
+      <div class="fusion-stack">
+        <div class="fusion-row"><div class="who">高客單轉化派</div><div class="what">吐槽本身不轉化，但會建立「真實感」資產。累積 5-10 支吐槽類內容後，再接商業 CTA，轉化率會高 2-3 倍。</div></div>
+        <div class="fusion-row"><div class="who">品牌整合派</div><div class="what">吐槽對象要精挑：吐槽「產業共同痛點」（安全） > 吐槽「特定客戶」（危險，可能被告）。</div></div>
+        <div class="fusion-row"><div class="who">結構化顧問派</div><div class="what">結構 = 問題描述 + 為什麼糟糕 + 正確做法應該是。不要純抱怨，要帶結論。</div></div>
+        <div class="fusion-row"><div class="who">真實對話派</div><div class="what">吐槽的節奏要真實，停頓、嘆氣、翻白眼都保留。過度剪輯反而失去吐槽的真實力道。</div></div>
+        <div class="fusion-row"><div class="who">在地口語派</div><div class="what">「我跟你講我真的」「每次都這樣欸」「你說這合理嗎」——台灣吐槽的語氣詞。</div></div>
+      </div>
+    </div>
+
+    <div class="layer">
+      <span class="layer-label">L5</span><span class="layer-title">對應合作目標 + 核心 KPI</span>
+      <div class="kpi-block">
+        <div class="kpi-item"><div class="k">主目標</div><div class="v">03 建立個人 IP</div></div>
+        <div class="kpi-item"><div class="k">副目標</div><div class="v">07 提升轉單品質</div></div>
+        <div class="kpi-item"><div class="k">核心 KPI</div><div class="v">互動率 3%+｜分享率</div></div>
+        <div class="kpi-item"><div class="k">CTA</div><div class="v">你也有這困擾嗎？留言+1</div></div>
+      </div>
+    </div>
+
+    <div class="layer">
+      <span class="layer-label">L6</span><span class="layer-title">三個產業範例題目</span>
+      <div class="examples">
+        <div class="example"><div class="who">律師</div>受夠了客戶這三種需求：「幫我免費諮詢一下就好」、「朋友說應該可以贏」、「可不可以不付訂金」</div>
+        <div class="example"><div class="who">生醫 / 醫師</div>每次聽到這種問題我都想離職：「細胞儲存可以治癌症嗎？」（不能這樣問，我告訴你原因）</div>
+        <div class="example"><div class="who">設計 / 顧問</div>客戶最常說的一句話讓我崩潰：「做得不難吧？」——這句話背後的心態</div>
+      </div>
+    </div>
+
+    <div class="layer">
+      <span class="layer-label">L7</span><span class="layer-title">CAIO 反問清單</span>
+      <div class="reflection">
+        <div class="q"><strong>結構化顧問派：</strong>吐槽有結構嗎？有給正確做法嗎？</div>
+        <div class="q"><strong>品牌整合派：</strong>吐槽對象安全嗎？不會被告嗎？</div>
+        <div class="q"><strong>執行長：</strong>看起來像真心吐槽，還是像劇本？</div>
+      </div>
+    </div>
+
+    <div class="layer">
+      <span class="layer-label">L8</span><span class="layer-title">踩雷警告</span>
+      <div class="trap"><span class="t">⚠ 坑 1：</span>吐槽特定客戶（用他的名字、照片、具體案情）→ 可能構成妨害名譽，還違反律師 / 醫師公會倫理。</div>
+      <div class="trap"><span class="t">⚠ 坑 2：</span>吐槽同業（點名）→ 公平交易法風險，也會讓自己顯得沒風度。</div>
+      <div class="trap"><span class="t">⚠ 坑 3：</span>純情緒沒結論 → 變成抱怨文，觀眾看完沒共鳴也沒學到東西。</div>
+    </div>
+
+    <div class="layer">
+      <span class="layer-label">L9</span><span class="layer-title">一鍵複製：CAIO 提示詞</span>
+      <div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>【任務：曬過程 × 吐槽 腳本】
+客戶：【填入】
+吐槽主題：【填入：例 客戶最讓我崩潰的三個要求】
+長度：【45秒 / 60秒】
+
+請產出腳本：
+① 前3秒：直接甩出吐槽主題，不要鋪陳
+② 中段：3 個具體吐槽點，每個點都有「為什麼糟糕 + 正確做法」
+③ 結尾：「你也有遇過嗎？留言+1」
+④ 吐槽產業共同痛點，不針對特定人
+⑤ 保留真實情緒：停頓、嘆氣、翻白眼
+⑥ 避開法律 / 倫理紅線
+⑦ 台灣口語：「我跟你講我真的」「每次都這樣欸」
+
+輸出：分段字幕稿 + 畫面提示</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 1-3 曬過程 × 貼金 -->
+<div class="card" id="card-1-3">
+  <div class="card-head">
+    <div>
+      <div class="card-id">CARD 1-3</div>
+      <div class="card-title">曬過程 <span class="x">×</span> 貼金</div>
+      <div class="card-tags">
+        <span class="tag goal">目標 05 建立信任</span>
+        <span class="tag">認知衝突</span>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <div class="layer">
+      <span class="layer-label">L1</span><span class="layer-title">心理機制（品牌整合派：創意綁定品牌）</span>
+      <div class="layer-content">
+        透過流程中出現的「大咖名人、高端場合、國際認證」來建立權威光環。觀眾看到你跟某某一起出現，會自動把對方的專業度轉移到你身上。貼金的關鍵是「自然露出」，不是直接炫耀。
+      </div>
+    </div>
+
+    <div class="layer">
+      <span class="layer-label">L2</span><span class="layer-title">極致留存派・鉤子結構</span>
+      <div class="layer-content">
+        結構：<strong>身份重量級登場</strong>。前 3 秒一定要有「有分量的畫面」：獎盃、證書、合作對象、國際場合。
+        <div class="hook">「這是我今天要交給一個客戶的報告——<br>他是你在電視上看過那個人。」</div>
+      </div>
+    </div>
+
+    <div class="layer">
+      <span class="layer-label">L3</span><span class="layer-title">情緒標題派・標題公式</span>
+      <div class="layer-content">
+        公式：<strong>「竟然」「想不到」「原來我」</strong>。情緒詞：厲害、天花板、神級、封神。
+        <div class="examples">
+          <div class="example">
+            <div class="who">專業服務</div>
+            當 XX 品牌找上我，我做了這件事｜原來我已經走到這
+          </div>
+          <div class="example">
+            <div class="who">個人 IP</div>
+            上了這個舞台才知道，13 年鏡頭前實戰有多值錢
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="layer">
+      <span class="layer-label">L4</span><span class="layer-title">七派融合思考</span>
+      <div class="fusion-stack">
+        <div class="fusion-row"><div class="who">高客單轉化派</div><div class="what">貼金是高客單必備。客戶看到「跟你合作的都是大咖」，會自動提高他的付費心理錨點。</div></div>
+        <div class="fusion-row"><div class="who">品牌整合派</div><div class="what">貼金要綁定你的服務價值，不是純炫富。「為什麼這個大咖選我」比「我認識這個大咖」重要。</div></div>
+        <div class="fusion-row"><div class="who">結構化顧問派</div><div class="what">結構：<strong>我做了什麼</strong>（具體成果）<strong>因此</strong>（大咖選我）<strong>所以你可以</strong>（對你的意義）。</div></div>
+        <div class="fusion-row"><div class="who">真實對話派</div><div class="what">貼金不要演，真實就好。「這是我跟 X 合作的花絮」比「我合作過 X」更有說服力。</div></div>
+        <div class="fusion-row"><div class="who">在地口語派</div><div class="what">「這次真的太榮幸」「壓力有夠大」——台灣人貼金要帶一點謙虛，不然會被討厭。</div></div>
+      </div>
+    </div>
+
+    <div class="layer">
+      <span class="layer-label">L5</span><span class="layer-title">對應合作目標 + 核心 KPI</span>
+      <div class="kpi-block">
+        <div class="kpi-item"><div class="k">主目標</div><div class="v">05 建立專業信任感</div></div>
+        <div class="kpi-item"><div class="k">副目標</div><div class="v">07 提升轉單品質</div></div>
+        <div class="kpi-item"><div class="k">核心 KPI</div><div class="v">收藏率｜高客單詢問</div></div>
+        <div class="kpi-item"><div class="k">CTA</div><div class="v">適合 XX 等級客戶找我</div></div>
+      </div>
+    </div>
+
+    <div class="layer">
+      <span class="layer-label">L6</span><span class="layer-title">三個產業範例題目</span>
+      <div class="examples">
+        <div class="example"><div class="who">律師（理鴻）</div>這個月幫一家上市公司處理勞資糾紛，過程中我學到三件事（案情匿名）</div>
+        <div class="example"><div class="who">生醫（喜躍）</div>接受國家生技醫療產業策進會評選那天，我才知道這些背後的故事</div>
+        <div class="example"><div class="who">個人 IP（家寧）</div>13 年精品合作經驗告訴我：高端品牌真正在乎的不是美，是這個</div>
+      </div>
+    </div>
+
+    <div class="layer">
+      <span class="layer-label">L7</span><span class="layer-title">CAIO 反問清單</span>
+      <div class="reflection">
+        <div class="q"><strong>結構化顧問派：</strong>貼金背後有邏輯支撐嗎？還是純炫耀？</div>
+        <div class="q"><strong>品牌整合派：</strong>貼金綁定你的服務價值了嗎？</div>
+        <div class="q"><strong>執行長：</strong>台灣受眾會覺得謙虛，還是討厭？</div>
+      </div>
+    </div>
+
+    <div class="layer">
+      <span class="layer-label">L8</span><span class="layer-title">踩雷警告</span>
+      <div class="trap"><span class="t">⚠ 坑 1：</span>只貼金不給內容 → 觀眾會覺得你在炫耀，反而討厭你。</div>
+      <div class="trap"><span class="t">⚠ 坑 2：</span>用客戶名字 / 照片炫耀 → 違反保密條款，客戶會告你。</div>
+      <div class="trap"><span class="t">⚠ 坑 3：</span>貼金跟服務無關（例：律師貼金名車）→ 反而顯得不專業。</div>
+    </div>
+
+    <div class="layer">
+      <span class="layer-label">L9</span><span class="layer-title">一鍵複製：CAIO 提示詞</span>
+      <div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>【任務：曬過程 × 貼金 腳本】
+客戶：【填入】
+貼金素材：【填入：例 大咖客戶 / 國際認證 / 獎項 / 合作品牌】
+長度：【45秒 / 60秒】
+
+請產出腳本：
+① 前3秒：直接放有分量的畫面（獎盃、證書、合作場合）
+② 中段：我做了什麼 → 因此 → 對你的意義（邏輯鏈）
+③ 結尾：篩選型 CTA「適合 XX 等級客戶找我」
+④ 貼金必須綁定服務價值（不是純炫耀）
+⑤ 台灣謙虛語氣：「太榮幸」「壓力好大」
+⑥ 匿名客戶隱私：不能用名字 / 照片
+
+輸出：分段字幕稿 + 畫面提示</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 1-4 曬過程 × 成本 -->
+<div class="card" id="card-1-4">
+  <div class="card-head">
+    <div>
+      <div class="card-id">CARD 1-4</div>
+      <div class="card-title">曬過程 <span class="x">×</span> 成本</div>
+      <div class="card-tags">
+        <span class="tag goal">目標 05 建立信任</span>
+        <span class="tag">利益直給</span>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <div class="layer">
+      <span class="layer-label">L1</span><span class="layer-title">心理機制（極度求真派：極度求真）</span>
+      <div class="layer-content">
+        公開成本結構是最強的信任武器。大部分業者藏成本，你公開——觀眾會覺得「這個人坦蕩，沒什麼好藏的」。尤其適合高客單、難解釋價值的服務業。
+      </div>
+    </div>
+
+    <div class="layer">
+      <span class="layer-label">L2</span><span class="layer-title">極致留存派・鉤子結構</span>
+      <div class="layer-content">
+        結構：<strong>數字直給</strong>。前 3 秒不解釋，直接報數字，越具體越好。
+        <div class="hook">「一支 45 秒短影音要 35,000 元，<br>你覺得貴嗎？我今天拆給你看。」</div>
+      </div>
+    </div>
+
+    <div class="layer">
+      <span class="layer-label">L3</span><span class="layer-title">情緒標題派・標題公式</span>
+      <div class="layer-content">
+        公式：<strong>「真實成本」「敢公開」「拆給你看」</strong>。情緒詞：血汗錢、真的值、不騙你。
+        <div class="examples">
+          <div class="example"><div class="who">服務業</div>這支影片的真實成本 35,000 元，我拆給你看（不騙你）</div>
+          <div class="example"><div class="who">餐飲 / 電商</div>一杯拿鐵 120 元，我把成本表攤開給你看</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="layer">
+      <span class="layer-label">L4</span><span class="layer-title">七派融合思考</span>
+      <div class="fusion-stack">
+        <div class="fusion-row"><div class="who">高客單轉化派</div><div class="what">公開成本 = 錨定效應。觀眾看過「成本 80 元，售價 150 元」後，會覺得「合理」而不是「賺很大」。</div></div>
+        <div class="fusion-row"><div class="who">品牌整合派</div><div class="what">成本透明化是品牌信任資產。一次公開，長期受益。</div></div>
+        <div class="fusion-row"><div class="who">結構化顧問派</div><div class="what">結構：<strong>總成本 = 直接成本 + 間接成本 + 時間成本 + 風險成本</strong>。別只講原料，要講隱形成本。</div></div>
+        <div class="fusion-row"><div class="who">真實對話派</div><div class="what">真的公開，不要美化。「有時候我會虧錢」比「我永遠賺」更可信。</div></div>
+        <div class="fusion-row"><div class="who">在地口語派</div><div class="what">「講真的啦」「我跟你說實話」——這句話出現，觀眾會豎起耳朵。</div></div>
+      </div>
+    </div>
+
+    <div class="layer">
+      <span class="layer-label">L5</span><span class="layer-title">對應合作目標 + 核心 KPI</span>
+      <div class="kpi-block">
+        <div class="kpi-item"><div class="k">主目標</div><div class="v">05 建立專業信任感</div></div>
+        <div class="kpi-item"><div class="k">副目標</div><div class="v">08 直接帶業績</div></div>
+        <div class="kpi-item"><div class="k">核心 KPI</div><div class="v">收藏率｜留言率</div></div>
+        <div class="kpi-item"><div class="k">CTA</div><div class="v">追蹤我看更多真實數字</div></div>
+      </div>
+    </div>
+
+    <div class="layer">
+      <span class="layer-label">L6</span><span class="layer-title">三個產業範例題目</span>
+      <div class="examples">
+        <div class="example"><div class="who">律師</div>打一場商業訴訟真實成本，我列給你看（含隱形成本）</div>
+        <div class="example"><div class="who">生醫</div>細胞儲存 20 年要多少錢？這裡面 70% 是這個費用</div>
+        <div class="example"><div class="who">短影音代理</div>一支短影音真實成本，從腳本到發布 35,000 元拆開看</div>
+      </div>
+    </div>
+
+    <div class="layer">
+      <span class="layer-label">L7</span><span class="layer-title">CAIO 反問清單</span>
+      <div class="reflection">
+        <div class="q"><strong>結構化顧問派：</strong>成本拆解 MECE 嗎？有漏項嗎？</div>
+        <div class="q"><strong>品牌整合派：</strong>公開成本後會傷害品牌嗎？</div>
+        <div class="q"><strong>執行長：</strong>數字看起來真實嗎，還是美化過？</div>
+      </div>
+    </div>
+
+    <div class="layer">
+      <span class="layer-label">L8</span><span class="layer-title">踩雷警告</span>
+      <div class="trap"><span class="t">⚠ 坑 1：</span>成本拆到太細 → 顯得小氣，也給同業抄。建議拆到「類別」層就好。</div>
+      <div class="trap"><span class="t">⚠ 坑 2：</span>只報低成本不報隱形成本 → 觀眾會覺得「那你賺很多」反而反效果。</div>
+      <div class="trap"><span class="t">⚠ 坑 3：</span>公開後客戶拿去殺價 → 腳本最後要強調「這是合理利潤，不是暴利」。</div>
+    </div>
+
+    <div class="layer">
+      <span class="layer-label">L9</span><span class="layer-title">一鍵複製：CAIO 提示詞</span>
+      <div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>【任務：曬過程 × 成本 腳本】
+客戶：【填入】
+產品 / 服務：【填入】
+售價：【填入】
+長度：【45秒 / 60秒】
+
+請產出腳本：
+① 前3秒：直接報售價，丟問句「你覺得貴嗎」
+② 中段：MECE 拆解成本
+   - 直接成本（原料 / 材料）
+   - 間接成本（人力 / 時間）
+   - 隱形成本（風險 / 機會成本）
+③ 結尾：這是合理利潤，不是暴利 + CTA
+④ 語氣坦蕩，不要美化數字
+⑤ 拆到類別層即可，不要拆到品項
+⑥ 台灣口語：「講真的啦」「我跟你說實話」
+
+輸出：分段字幕稿 + 成本表視覺建議</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 1-5 曬過程 × 乾貨輸出（獨家觸發器） -->
+<div class="card flagship" id="card-1-5">
+  <div class="card-head">
+    <div>
+      <div class="card-id">CARD 1-5</div>
+      <div class="card-title">曬過程 <span class="x">×</span> 乾貨輸出 ★</div>
+      <div class="card-tags">
+        <span class="tag flag">★ 獨家觸發器</span>
+        <span class="tag goal">目標 04 教育市場</span>
+        <span class="tag">利益直給</span>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <div class="layer">
+      <span class="layer-label">L1</span><span class="layer-title">心理機制（結構化顧問派：結構化痛點拆解）</span>
+      <div class="layer-content">
+        在展示流程的同時，把你的「方法論 / SOP / 決策邏輯」結構化地講出來。觀眾不只看到你在做，還學到怎麼做。這類內容儲存率最高，是長期信任資產。
+      </div>
+    </div>
+
+    <div class="layer">
+      <span class="layer-label">L2</span><span class="layer-title">極致留存派・鉤子結構</span>
+      <div class="layer-content">
+        結構：<strong>具體數字 + 結構宣告</strong>。前 3 秒直接告訴觀眾「你會學到什麼」。
+        <div class="hook">「我接到一個客戶要 72 小時內出片，<br>全流程 5 個步驟，我一邊做一邊教你。」</div>
+      </div>
+    </div>
+
+    <div class="layer">
+      <span class="layer-label">L3</span><span class="layer-title">情緒標題派・標題公式</span>
+      <div class="layer-content">
+        公式：<strong>「手把手」「SOP」「照做就對了」「懶人包」</strong>。情緒詞：超實用、直接抄、不藏私。
+        <div class="examples">
+          <div class="example"><div class="who">B2B 服務</div>我怎麼 72 小時完成一個客戶案？5 步驟手把手</div>
+          <div class="example"><div class="who">教練 / 顧問</div>接一個客戶的 SOP 全流程，直接抄走用</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="layer">
+      <span class="layer-label">L4</span><span class="layer-title">七派融合思考</span>
+      <div class="fusion-stack">
+        <div class="fusion-row"><div class="who">高客單轉化派</div><div class="what">免費乾貨是最好的「先試後買」。觀眾照你的方法試一半做不下去，會回來付費找你做完。</div></div>
+        <div class="fusion-row"><div class="who">品牌整合派</div><div class="what">每個乾貨點都要綁一句「這就是我服務的核心能力」，讓觀眾記得你能解決這問題。</div></div>
+        <div class="fusion-row"><div class="who">結構化顧問派</div><div class="what">必須是 MECE 結構：步驟之間互斥、加起來完整。散亂的乾貨等於沒乾貨。</div></div>
+        <div class="fusion-row"><div class="who">真實對話派</div><div class="what">用真實案例說，不要用虛構情境。「我昨天這個客戶」比「假設有個客戶」有力 10 倍。</div></div>
+        <div class="fusion-row"><div class="who">在地口語派</div><div class="what">「我直接告訴你」「不藏私喔」「這個很重要」——台灣人最吃「不藏私」人設。</div></div>
+      </div>
+    </div>
+
+    <div class="layer">
+      <span class="layer-label">L5</span><span class="layer-title">對應合作目標 + 核心 KPI</span>
+      <div class="kpi-block">
+        <div class="kpi-item"><div class="k">主目標</div><div class="v">04 教育市場</div></div>
+        <div class="kpi-item"><div class="k">副目標</div><div class="v">05 建立信任</div></div>
+        <div class="kpi-item"><div class="k">核心 KPI</div><div class="v">儲存率 6%+｜完播 45%+</div></div>
+        <div class="kpi-item"><div class="k">CTA</div><div class="v">儲存 + 追蹤看更多</div></div>
+      </div>
+    </div>
+
+    <div class="layer">
+      <span class="layer-label">L6</span><span class="layer-title">三個產業範例題目</span>
+      <div class="examples">
+        <div class="example"><div class="who">律師</div>我接到企業勞資糾紛案的前 48 小時，我做這 5 件事（拆解完整流程）</div>
+        <div class="example"><div class="who">生醫</div>細胞儲存從抽取到保存的完整 SOP，6 個關鍵步驟拆解</div>
+        <div class="example"><div class="who">短影音代理</div>我怎麼在 7 天內幫客戶做完一個月的內容？完整 SOP 分享</div>
+      </div>
+    </div>
+
+    <div class="layer">
+      <span class="layer-label">L7</span><span class="layer-title">CAIO 反問清單</span>
+      <div class="reflection">
+        <div class="q"><strong>結構化顧問派：</strong>步驟 MECE 嗎？重複或遺漏？</div>
+        <div class="q"><strong>品牌整合派：</strong>每步驟都綁定你的核心能力了嗎？</div>
+        <div class="q"><strong>執行長：</strong>觀眾照做真能有 60 分嗎？</div>
+      </div>
+    </div>
+
+    <div class="layer">
+      <span class="layer-label">L8</span><span class="layer-title">踩雷警告</span>
+      <div class="trap"><span class="t">⚠ 坑 1：</span>乾貨太零散，沒結構 → 觀眾看完記不住，等於沒教。</div>
+      <div class="trap"><span class="t">⚠ 坑 2：</span>怕同業學，乾貨只講半套 → 觀眾馬上感受到，信任扣分。</div>
+      <div class="trap"><span class="t">⚠ 坑 3：</span>只給步驟，沒給「什麼情況適合這方法」→ 觀眾照抄但失敗，會怪你。</div>
+    </div>
+
+    <div class="layer">
+      <span class="layer-label">L9</span><span class="layer-title">一鍵複製：CAIO 提示詞</span>
+      <div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>【任務：曬過程 × 乾貨 腳本】
+客戶：【填入】
+乾貨主題：【填入：例 72小時出片 SOP】
+步驟數：【5 / 7 / 10】
+長度：【60秒 / 90秒】
+
+請產出腳本：
+① 前3秒：具體數字 + 結構宣告「X 步驟手把手」
+② 中段：每步驟「做什麼 + 為什麼 + 什麼情況適用」
+③ 結尾：「這就是我服務的核心，儲存追蹤」
+④ 步驟必須 MECE（互斥、完整）
+⑤ 用真實案例說，不要假設
+⑥ 每步驟綁定你的核心能力
+⑦ 台灣口語：「不藏私」「我直接告訴你」
+
+輸出：分段字幕稿 + 視覺圖表建議</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 其餘 9 格（1-6 到 1-14）用稍簡化版本，但仍含 9 層 -->
+
+<!-- 1-6 曬過程 × 光練不說 -->
+<div class="card" id="card-1-6">
+  <div class="card-head">
+    <div>
+      <div class="card-id">CARD 1-6</div>
+      <div class="card-title">曬過程 <span class="x">×</span> 光練不說</div>
+      <div class="card-tags">
+        <span class="tag goal">目標 02 記憶點</span>
+        <span class="tag">利益直給</span>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="layer"><span class="layer-label">L1</span><span class="layer-title">心理機制（真實對話派：真實感最大化）</span>
+      <div class="layer-content">整支影片不配旁白、不加字幕，純畫面 + 環境音 + 音樂。讓「動作本身」說話。當大家都拚命說話，沉默反而最吸睛。適合有視覺衝擊力的流程（剪輯過程、烘焙、實驗、手作）。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L2</span><span class="layer-title">極致留存派・鉤子結構</span>
+      <div class="layer-content">結構：<strong>動作特寫直接上</strong>。不解釋，直接動手。
+        <div class="hook">（無台詞）<br>畫面：手戴無菌手套、細胞樣本進入冷凍罐、-196°C 數字跳動</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L3</span><span class="layer-title">情緒標題派・標題公式</span>
+      <div class="layer-content">公式：<strong>「無聲 ASMR」「不用說話的 X」「看完覺得好療癒」</strong>。
+        <div class="examples">
+          <div class="example"><div class="who">職人型</div>律師事務所的一天（無台詞版）</div>
+          <div class="example"><div class="who">製造 / 工藝</div>細胞保存全流程（ASMR 純畫面）</div>
+        </div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L4</span><span class="layer-title">七派融合思考</span>
+      <div class="fusion-stack">
+        <div class="fusion-row"><div class="who">高客單轉化派</div><div class="what">無聲內容降低觀眾防禦心，反而更容易接受結尾 CTA。</div></div>
+        <div class="fusion-row"><div class="who">品牌整合派</div><div class="what">畫面必須每一秒都綁品牌（logo、色調、場景）——不說話更要靠視覺建立品牌記憶。</div></div>
+        <div class="fusion-row"><div class="who">結構化顧問派</div><div class="what">即使無台詞，內容結構還是要有「起承轉合」，觀眾才不會滑掉。</div></div>
+        <div class="fusion-row"><div class="who">真實對話派</div><div class="what">環境音超重要。刀切聲、打字聲、冷凍罐開啟聲——保留真實音效。</div></div>
+        <div class="fusion-row"><div class="who">在地口語派</div><div class="what">台灣觀眾其實很吃「治癒感」——無聲+慢節奏+暖色調=高完播。</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L5</span><span class="layer-title">目標 + KPI</span>
+      <div class="kpi-block">
+        <div class="kpi-item"><div class="k">主目標</div><div class="v">02 提高品牌記憶點</div></div>
+        <div class="kpi-item"><div class="k">核心 KPI</div><div class="v">完播率｜回訪率</div></div>
+        <div class="kpi-item"><div class="k">CTA</div><div class="v">片尾字卡靜默呈現</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L6</span><span class="layer-title">三個產業範例</span>
+      <div class="examples">
+        <div class="example"><div class="who">律師</div>事務所的早晨（無台詞，純環境音）</div>
+        <div class="example"><div class="who">生醫</div>細胞保存全流程 ASMR</div>
+        <div class="example"><div class="who">個人 IP</div>一個創作者的拍攝日（純畫面）</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L7</span><span class="layer-title">CAIO 反問</span>
+      <div class="reflection">
+        <div class="q"><strong>結構化顧問派：</strong>無台詞也有起承轉合嗎？</div>
+        <div class="q"><strong>品牌整合派：</strong>每一幀都綁品牌了嗎？</div>
+        <div class="q"><strong>執行長：</strong>3 秒內有抓住眼球嗎？</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L8</span><span class="layer-title">踩雷</span>
+      <div class="trap"><span class="t">⚠</span>拍了但沒剪節奏 → 無聲會變無聊。</div>
+      <div class="trap"><span class="t">⚠</span>畫面單調沒亮點 → 要有動態物件（流動、轉動、切割）。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L9</span><span class="layer-title">提示詞</span>
+      <div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>【任務：曬過程 × 光練不說 腳本】
+客戶：【填入】
+場景：【填入，例 律師事務所的一天】
+長度：【30秒 / 45秒】
+
+請產出無台詞分鏡腳本：
+① 無旁白、無字幕（除片尾字卡）
+② 每 3-5 秒一個畫面，總共 8-12 鏡
+③ 保留環境音（打字聲、紙張聲、腳步聲）
+④ 背景音樂：低調爵士 / 極簡鋼琴
+⑤ 每幀都有品牌元素（logo / 色調 / 場景）
+⑥ 片尾 3 秒靜默字卡 CTA
+
+輸出：分鏡表（秒數、畫面、音效、音樂）</div>
+    </div>
+  </div>
+</div>
+
+<!-- 1-7 曬過程 × 熱點 -->
+<div class="card" id="card-1-7">
+  <div class="card-head">
+    <div>
+      <div class="card-id">CARD 1-7</div>
+      <div class="card-title">曬過程 <span class="x">×</span> 熱點</div>
+      <div class="card-tags">
+        <span class="tag goal">目標 01 曝光</span>
+        <span class="tag">社交貨幣</span>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="layer"><span class="layer-label">L1</span><span class="layer-title">心理機制（品牌整合派：創意綁品牌核心）</span>
+      <div class="layer-content">把正在發生的社會熱點（新聞、流行語、梗）融入你的日常流程。熱點自帶流量，但必須綁回你的專業領域，否則就是亂蹭。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L2</span><span class="layer-title">極致留存派・鉤子</span>
+      <div class="layer-content">結構：<strong>熱點關鍵字 + 我的視角</strong>。
+        <div class="hook">「大家都在討論 XX 事件，<br>作為律師，我現在正在處理的案子剛好就是這類⋯」</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L3</span><span class="layer-title">情緒標題派・標題</span>
+      <div class="layer-content">公式：<strong>「XX 事件」「熱搜」「最近都在問」</strong>。
+        <div class="examples">
+          <div class="example"><div class="who">律師</div>最近 XX 案熱搜，很多老闆私訊問我同一個問題</div>
+          <div class="example"><div class="who">生醫</div>再生醫療雙法上路第 X 天，我們內部在做這件事</div>
+        </div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L4</span><span class="layer-title">七派思考</span>
+      <div class="fusion-stack">
+        <div class="fusion-row"><div class="who">高客單轉化派</div><div class="what">熱點內容短期爆量，但要快——3-7 天內發最有效，超過就是冷飯。</div></div>
+        <div class="fusion-row"><div class="who">品牌整合派</div><div class="what">熱點必須綁回你的專業：律師只蹭法律熱點，醫師只蹭健康熱點。</div></div>
+        <div class="fusion-row"><div class="who">結構化顧問派</div><div class="what">結構：熱點事實 → 我的角度 → 對你的啟示。別只複述新聞。</div></div>
+        <div class="fusion-row"><div class="who">真實對話派</div><div class="what">給真實觀點，不要模糊兩可。觀眾記住的是「敢說真話的人」。</div></div>
+        <div class="fusion-row"><div class="who">在地口語派</div><div class="what">「欸你有看到 XX 嗎」「這個我真的要講一下」——熱點開場要像朋友開話題。</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L5</span><span class="layer-title">目標 + KPI</span>
+      <div class="kpi-block">
+        <div class="kpi-item"><div class="k">主目標</div><div class="v">01 增加品牌曝光</div></div>
+        <div class="kpi-item"><div class="k">核心 KPI</div><div class="v">觸及數｜分享率</div></div>
+        <div class="kpi-item"><div class="k">CTA</div><div class="v">追蹤我看更多解讀</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L6</span><span class="layer-title">範例</span>
+      <div class="examples">
+        <div class="example"><div class="who">律師</div>XX 公司爆出員工告資方，我剛好在處理同類案</div>
+        <div class="example"><div class="who">生醫</div>再生醫療雙法上路，我們廠房這週做了這件事</div>
+        <div class="example"><div class="who">電商</div>最近 XX 商品爆紅，我們設計部在討論的是這件事</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L7</span><span class="layer-title">反問</span>
+      <div class="reflection">
+        <div class="q"><strong>結構化顧問派：</strong>只蹭還是有自己角度？</div>
+        <div class="q"><strong>品牌整合派：</strong>熱點綁回專業了嗎？</div>
+        <div class="q"><strong>執行長：</strong>時效性夠嗎？還是已經冷了？</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L8</span><span class="layer-title">踩雷</span>
+      <div class="trap"><span class="t">⚠</span>蹭熱點跟專業無關 → 純流量垃圾，無法轉化。</div>
+      <div class="trap"><span class="t">⚠</span>蹭敏感熱點（災難、政治）→ 形象受損。</div>
+      <div class="trap"><span class="t">⚠</span>律師 / 醫師蹭案件熱點 → 可能違反執業倫理。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L9</span><span class="layer-title">提示詞</span>
+      <div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>【任務：曬過程 × 熱點 腳本】
+客戶：【填入】
+熱點：【填入，例 XX 事件】
+你的專業角度：【填入】
+長度：【30秒 / 45秒】
+
+請產出腳本：
+① 前3秒：熱點關鍵字 + 我的專業視角
+② 中段：熱點事實 → 我的角度 → 對你的啟示（三段）
+③ 結尾：追蹤看更多解讀
+④ 熱點必須綁回專業
+⑤ 避開政治 / 災難敏感議題
+⑥ 律師 / 醫師避開執業倫理紅線
+⑦ 時效性：3-7 天內發
+
+輸出：分段字幕稿 + 畫面提示</div>
+    </div>
+  </div>
+</div>
+
+<!-- 1-8 曬過程 × 懷舊 -->
+<div class="card" id="card-1-8">
+  <div class="card-head">
+    <div>
+      <div class="card-id">CARD 1-8</div>
+      <div class="card-title">曬過程 <span class="x">×</span> 懷舊</div>
+      <div class="card-tags">
+        <span class="tag goal">目標 03 建立IP</span>
+        <span class="tag">社交貨幣</span>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="layer"><span class="layer-label">L1</span><span class="layer-title">心理機制（情緒標題派：情緒共鳴）</span>
+      <div class="layer-content">展示「以前怎麼做 vs 現在怎麼做」的對比，或重現經典流程。懷舊觸發同年齡受眾的集體記憶，分享率極高。尤其是 30-50 歲族群。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L2</span><span class="layer-title">極致留存派・鉤子</span>
+      <div class="layer-content">結構：<strong>時空對比</strong>。
+        <div class="hook">「2010 年我開始做這件事，<br>那時候的流程跟現在差超多。」</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L3</span><span class="layer-title">情緒標題派・標題</span>
+      <div class="layer-content">公式：<strong>「那年的」「還記得嗎」「十年前」</strong>。情緒詞：青春、回不去、那時候。
+        <div class="examples">
+          <div class="example"><div class="who">任何產業</div>十年前的我怎麼做影片？現在看覺得很菜（對比版）</div>
+          <div class="example"><div class="who">職人</div>2010 的律師開庭 vs 2026 的律師開庭</div>
+        </div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L4</span><span class="layer-title">七派思考</span>
+      <div class="fusion-stack">
+        <div class="fusion-row"><div class="who">高客單轉化派</div><div class="what">懷舊內容分享率最高，幫你破同溫層觸及新族群。</div></div>
+        <div class="fusion-row"><div class="who">品牌整合派</div><div class="what">懷舊要強化「你的專業累積 = 真實時間」。13 年不是 13 個月。</div></div>
+        <div class="fusion-row"><div class="who">結構化顧問派</div><div class="what">結構：那時的做法 → 為什麼變 → 現在的做法。展示進化邏輯。</div></div>
+        <div class="fusion-row"><div class="who">真實對話派</div><div class="what">真的放以前的照片 / 影片，觀眾一看就信。</div></div>
+        <div class="fusion-row"><div class="who">在地口語派</div><div class="what">「那年頭」「以前真的」「現在想起來」——台灣懷舊語彙。</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L5</span><span class="layer-title">目標 + KPI</span>
+      <div class="kpi-block">
+        <div class="kpi-item"><div class="k">主目標</div><div class="v">03 建立個人 IP</div></div>
+        <div class="kpi-item"><div class="k">核心 KPI</div><div class="v">分享率｜互動率</div></div>
+        <div class="kpi-item"><div class="k">CTA</div><div class="v">你是哪個年代的？留言</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L6</span><span class="layer-title">範例</span>
+      <div class="examples">
+        <div class="example"><div class="who">律師</div>2010 年接案都靠人介紹 vs 現在線上就能諮詢</div>
+        <div class="example"><div class="who">個人 IP（家寧）</div>13 年前第一支影片 vs 現在的影片</div>
+        <div class="example"><div class="who">餐飲</div>阿嬤時代的配方 vs 現代改良版</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L7</span><span class="layer-title">反問</span>
+      <div class="reflection">
+        <div class="q"><strong>結構化顧問派：</strong>有展示進化邏輯嗎？</div>
+        <div class="q"><strong>品牌整合派：</strong>懷舊強化專業累積了嗎？</div>
+        <div class="q"><strong>執行長：</strong>年輕受眾會懂嗎？</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L8</span><span class="layer-title">踩雷</span>
+      <div class="trap"><span class="t">⚠</span>純懷舊沒結論 → 變成老人碎念。</div>
+      <div class="trap"><span class="t">⚠</span>懷舊素材太私人 → 觀眾沒共鳴，要用集體記憶。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L9</span><span class="layer-title">提示詞</span>
+      <div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>【任務：曬過程 × 懷舊 腳本】
+客戶：【填入】
+懷舊對比：【填入，例 10 年前 vs 現在的 X】
+長度：【45秒 / 60秒】
+
+請產出腳本：
+① 前3秒：時空對比直接進
+② 中段：那時做法 → 為什麼變 → 現在做法
+③ 結尾：你是哪個年代的？留言
+④ 用集體記憶，不要太私人
+⑤ 強化專業累積 = 真實時間
+⑥ 台灣懷舊語：「那年頭」「以前真的」
+
+輸出：分段字幕稿 + 新舊對比視覺建議</div>
+    </div>
+  </div>
+</div>
+
+<!-- 1-9 曬過程 × 賀爾蒙 -->
+<div class="card" id="card-1-9">
+  <div class="card-head">
+    <div>
+      <div class="card-id">CARD 1-9</div>
+      <div class="card-title">曬過程 <span class="x">×</span> 賀爾蒙</div>
+      <div class="card-tags">
+        <span class="tag goal">目標 01 曝光</span>
+        <span class="tag">社交貨幣</span>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="layer"><span class="layer-label">L1</span><span class="layer-title">心理機制（極致留存派：視覺衝擊）</span>
+      <div class="layer-content">運用美感、帥氣、質感、氣場來吸引眼球。不是外貌歧視，是「視覺吸引力 = 停下來的第一秒」。適合個人 IP、精品、時尚、餐飲擺盤。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L2</span><span class="layer-title">極致留存派・鉤子</span>
+      <div class="layer-content">結構：<strong>美感特寫直接上</strong>。不說話，讓畫面自己吸睛。
+        <div class="hook">（畫面：慢動作整理西裝袖扣 / 手部特寫戴手錶）<br>（字幕：出庭前的 5 分鐘）</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L3</span><span class="layer-title">情緒標題派・標題</span>
+      <div class="layer-content">公式：<strong>「氣場」「質感」「這個男人」「這個女人」</strong>。
+        <div class="examples">
+          <div class="example"><div class="who">個人 IP</div>準備出鏡前 10 分鐘的我（氣場養成紀錄）</div>
+          <div class="example"><div class="who">精品 / 時尚</div>質感男人的一日流程（早晨篇）</div>
+        </div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L4</span><span class="layer-title">七派思考</span>
+      <div class="fusion-stack">
+        <div class="fusion-row"><div class="who">高客單轉化派</div><div class="what">賀爾蒙流量超大但轉化低，需要搭配其他類型內容混用。</div></div>
+        <div class="fusion-row"><div class="who">品牌整合派</div><div class="what">賀爾蒙必須綁品牌調性。律師可以西裝質感，不能性感。</div></div>
+        <div class="fusion-row"><div class="who">結構化顧問派</div><div class="what">結構其實還是要有——不能只是一堆美感素材，要有敘事。</div></div>
+        <div class="fusion-row"><div class="who">真實對話派</div><div class="what">真實的帥氣比擺拍的帥氣有效 10 倍。</div></div>
+        <div class="fusion-row"><div class="who">在地口語派</div><div class="what">台灣觀眾其實吃低調質感多過浮誇 sexy。</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L5</span><span class="layer-title">目標 + KPI</span>
+      <div class="kpi-block">
+        <div class="kpi-item"><div class="k">主目標</div><div class="v">01 曝光</div></div>
+        <div class="kpi-item"><div class="k">副目標</div><div class="v">02 記憶點</div></div>
+        <div class="kpi-item"><div class="k">核心 KPI</div><div class="v">完播｜儲存率（愛美族群）</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L6</span><span class="layer-title">範例</span>
+      <div class="examples">
+        <div class="example"><div class="who">律師</div>出庭前的準備儀式（質感型）</div>
+        <div class="example"><div class="who">個人 IP</div>13 年鏡頭經驗的妝容準備流程</div>
+        <div class="example"><div class="who">餐飲 / 精品</div>上菜前的擺盤全流程（美感特寫）</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L7</span><span class="layer-title">反問</span>
+      <div class="reflection">
+        <div class="q"><strong>品牌整合派：</strong>賀爾蒙綁品牌調性嗎？</div>
+        <div class="q"><strong>執行長：</strong>台灣觀眾覺得舒服還是尬？</div>
+        <div class="q"><strong>極度求真派：</strong>真實的自己嗎？</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L8</span><span class="layer-title">踩雷</span>
+      <div class="trap"><span class="t">⚠</span>賀爾蒙過頭變低俗 → 傷專業形象。</div>
+      <div class="trap"><span class="t">⚠</span>純美感沒內容 → 新粉不會留下來。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L9</span><span class="layer-title">提示詞</span>
+      <div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>【任務：曬過程 × 賀爾蒙 腳本】
+客戶：【填入】
+美感素材：【填入，例 西裝質感 / 妝容 / 擺盤】
+長度：【30秒】
+
+請產出腳本：
+① 前3秒：美感特寫直接進
+② 中段：慢動作 + 細節特寫為主
+③ 結尾：字卡 CTA
+④ 賀爾蒙綁品牌調性
+⑤ 台灣觀眾要低調質感（非浮誇）
+⑥ 真實感 > 擺拍感
+
+輸出：分鏡 + 運鏡 + 音樂建議</div>
+    </div>
+  </div>
+</div>
+
+<!-- 1-10 曬過程 × 互動 -->
+<div class="card" id="card-1-10">
+  <div class="card-head">
+    <div>
+      <div class="card-id">CARD 1-10</div>
+      <div class="card-title">曬過程 <span class="x">×</span> 互動</div>
+      <div class="card-tags">
+        <span class="tag goal">目標 06 詢問量</span>
+        <span class="tag">互動驅動</span>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="layer"><span class="layer-label">L1</span><span class="layer-title">心理機制（高客單轉化派：參與感轉化）</span>
+      <div class="layer-content">讓觀眾「參與」你的流程——投票、選答、出題。觀眾一旦參與，就會在意結果。這會大幅提升留言、分享、追蹤的慾望。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L2</span><span class="layer-title">極致留存派・鉤子</span>
+      <div class="layer-content">結構：<strong>直接提問</strong>。
+        <div class="hook">「我現在要做一份提案，<br>你覺得我應該用 A 方案還是 B 方案？」</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L3</span><span class="layer-title">情緒標題派・標題</span>
+      <div class="layer-content">公式：<strong>「你選哪個」「留言告訴我」「決定權在你」</strong>。
+        <div class="examples">
+          <div class="example"><div class="who">任何</div>你覺得這個客戶該這樣處理還是這樣？留言決定</div>
+        </div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L4</span><span class="layer-title">七派思考</span>
+      <div class="fusion-stack">
+        <div class="fusion-row"><div class="who">高客單轉化派</div><div class="what">互動 = 數據收集。從留言裡你會找到下個月的題目庫。</div></div>
+        <div class="fusion-row"><div class="who">品牌整合派</div><div class="what">互動選項要跟你的專業相關。</div></div>
+        <div class="fusion-row"><div class="who">結構化顧問派</div><div class="what">A vs B 的選項要 MECE，不能有第三種常見答案漏掉。</div></div>
+        <div class="fusion-row"><div class="who">真實對話派</div><div class="what">真的按留言選項做，觀眾會有「我影響了結果」的快感。</div></div>
+        <div class="fusion-row"><div class="who">在地口語派</div><div class="what">「欸你幫我選一下」「我真的不知道」——示弱比強勢更能拿到互動。</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L5</span><span class="layer-title">目標 + KPI</span>
+      <div class="kpi-block">
+        <div class="kpi-item"><div class="k">主目標</div><div class="v">06 增加詢問量</div></div>
+        <div class="kpi-item"><div class="k">副目標</div><div class="v">03 建立 IP</div></div>
+        <div class="kpi-item"><div class="k">核心 KPI</div><div class="v">留言率｜互動率</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L6</span><span class="layer-title">範例</span>
+      <div class="examples">
+        <div class="example"><div class="who">律師</div>客戶想告員工，你覺得值得告還是和解？留言</div>
+        <div class="example"><div class="who">個人 IP</div>下支影片你想看 A 主題 還是 B 主題？</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L7</span><span class="layer-title">反問</span>
+      <div class="reflection">
+        <div class="q"><strong>結構化顧問派：</strong>選項 MECE 嗎？</div>
+        <div class="q"><strong>品牌整合派：</strong>選項綁專業嗎？</div>
+        <div class="q"><strong>執行長：</strong>觀眾真會回嗎？</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L8</span><span class="layer-title">踩雷</span>
+      <div class="trap"><span class="t">⚠</span>問了不回 → 下次沒人會留言。</div>
+      <div class="trap"><span class="t">⚠</span>選項太抽象 → 觀眾懶得想。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L9</span><span class="layer-title">提示詞</span>
+      <div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>【任務：曬過程 × 互動 腳本】
+客戶：【填入】
+互動問題：【填入 A vs B】
+長度：【30秒】
+
+請產出腳本：
+① 前3秒：直接問 A vs B
+② 中段：簡述 A 方案和 B 方案的差異
+③ 結尾：留言你選哪個，下支影片做結果
+④ 選項必須 MECE
+⑤ 承諾會回覆留言
+⑥ 示弱語氣：「我真的在猶豫」</div>
+    </div>
+  </div>
+</div>
+
+<!-- 1-11 曬過程 × 隨機 -->
+<div class="card" id="card-1-11">
+  <div class="card-head">
+    <div>
+      <div class="card-id">CARD 1-11</div>
+      <div class="card-title">曬過程 <span class="x">×</span> 隨機</div>
+      <div class="card-tags">
+        <span class="tag goal">目標 03 建立IP</span>
+        <span class="tag">互動驅動</span>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="layer"><span class="layer-label">L1</span><span class="layer-title">心理機制（極致留存派：懸念感）</span>
+      <div class="layer-content">用隨機機制（抽籤、轉輪、骰子）決定流程的走向。觀眾想看結果，會看完整支。適合 IP 建立，不適合嚴肅客戶。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L2</span><span class="layer-title">鉤子</span>
+      <div class="layer-content"><div class="hook">「我用抽籤決定今天要接哪個案子，<br>結果抽到最難的那個⋯」</div></div>
+    </div>
+    <div class="layer"><span class="layer-label">L3</span><span class="layer-title">標題</span>
+      <div class="layer-content">公式：<strong>「隨機」「讓抽籤決定」「結果出乎意料」</strong>。
+        <div class="examples"><div class="example"><div class="who">個人 IP</div>我用抽籤決定今天工作內容，結果⋯</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L4</span><span class="layer-title">七派</span>
+      <div class="fusion-stack">
+        <div class="fusion-row"><div class="who">高客單轉化派</div><div class="what">隨機創造懸念 = 高完播。</div></div>
+        <div class="fusion-row"><div class="who">品牌整合派</div><div class="what">隨機選項要控制在品牌可接受範圍內。</div></div>
+        <div class="fusion-row"><div class="who">結構化顧問派</div><div class="what">隨機只是手段，內容還是要有結構。</div></div>
+        <div class="fusion-row"><div class="who">真實對話派</div><div class="what">真的隨機，不要假抽。</div></div>
+        <div class="fusion-row"><div class="who">在地口語派</div><div class="what">「欸天啊」「不會吧」——隨機結果的反應要真實。</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L5</span><span class="layer-title">目標</span>
+      <div class="kpi-block">
+        <div class="kpi-item"><div class="k">主目標</div><div class="v">03 建立 IP</div></div>
+        <div class="kpi-item"><div class="k">核心 KPI</div><div class="v">完播率｜互動率</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L6</span><span class="layer-title">範例</span>
+      <div class="examples">
+        <div class="example"><div class="who">個人 IP</div>抽籤決定今天吃什麼午餐 + 邊吃邊聊工作</div>
+        <div class="example"><div class="who">餐飲</div>讓粉絲抽籤決定下週主打菜</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L7</span><span class="layer-title">反問</span>
+      <div class="reflection">
+        <div class="q"><strong>品牌整合派：</strong>隨機結果都在品牌可接受範圍？</div>
+        <div class="q"><strong>執行長：</strong>看起來真的隨機嗎？</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L8</span><span class="layer-title">踩雷</span>
+      <div class="trap"><span class="t">⚠</span>嚴肅專業客戶用隨機 → 形象崩壞。</div>
+      <div class="trap"><span class="t">⚠</span>假抽一看就出戲。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L9</span><span class="layer-title">提示詞</span>
+      <div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>【任務：曬過程 × 隨機 腳本】
+客戶：【填入】
+隨機機制：【填入，例 抽籤 / 轉輪 / 骰子】
+隨機選項：【填入 5-10 個】
+長度：【30秒 / 45秒】
+
+請產出腳本：
+① 前3秒：宣告隨機機制
+② 中段：真實執行抽選 + 反應
+③ 結尾：執行結果 + CTA
+④ 選項必須都在品牌可接受範圍
+⑤ 不要假抽，真實為主
+⑥ 嚴肅客戶不適用，個人 IP 才用</div>
+    </div>
+  </div>
+</div>
+
+<!-- 1-12 曬過程 × 受眾鎖定 -->
+<div class="card" id="card-1-12">
+  <div class="card-head">
+    <div>
+      <div class="card-id">CARD 1-12</div>
+      <div class="card-title">曬過程 <span class="x">×</span> 受眾鎖定</div>
+      <div class="card-tags">
+        <span class="tag goal">目標 07 轉單品質</span>
+        <span class="tag">互動驅動</span>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="layer"><span class="layer-label">L1</span><span class="layer-title">心理機制（高客單轉化派：篩選高意向）</span>
+      <div class="layer-content">開場直接點名「這支影片是給 X 的」，把不相關的人篩走，把高意向客戶拉進來。看似觸及變低，但詢問品質大幅提升。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L2</span><span class="layer-title">鉤子</span>
+      <div class="layer-content"><div class="hook">「這支影片只有一種人看得懂：<br>年營收 3000 萬以上的中小企業老闆。」</div></div>
+    </div>
+    <div class="layer"><span class="layer-label">L3</span><span class="layer-title">標題</span>
+      <div class="layer-content">公式：<strong>「只給 X 看」「XX 才要知道」「這篇不適合一般人」</strong>。
+        <div class="examples"><div class="example"><div class="who">B2B</div>只給年營收 3000 萬以上老闆：勞資糾紛處理三原則</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L4</span><span class="layer-title">七派</span>
+      <div class="fusion-stack">
+        <div class="fusion-row"><div class="who">高客單轉化派</div><div class="what">篩選型 CTA 是高客單必備，自我排除的人不是你的客戶。</div></div>
+        <div class="fusion-row"><div class="who">品牌整合派</div><div class="what">點名越具體，認同感越強，品牌印象越深。</div></div>
+        <div class="fusion-row"><div class="who">結構化顧問派</div><div class="what">鎖定條件要清楚：年齡 / 收入 / 產業 / 角色。</div></div>
+        <div class="fusion-row"><div class="who">真實對話派</div><div class="what">要有信心才能這樣講，「這不適合一般人」需要底氣。</div></div>
+        <div class="fusion-row"><div class="who">在地口語派</div><div class="what">「只有 XX 的人會懂」「這支真的不是給所有人看」。</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L5</span><span class="layer-title">目標</span>
+      <div class="kpi-block">
+        <div class="kpi-item"><div class="k">主目標</div><div class="v">07 提升轉單品質</div></div>
+        <div class="kpi-item"><div class="k">核心 KPI</div><div class="v">詢問品質｜成交率</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L6</span><span class="layer-title">範例</span>
+      <div class="examples">
+        <div class="example"><div class="who">律師</div>只給員工超過 20 人的老闆：這 3 條勞基法你一定要懂</div>
+        <div class="example"><div class="who">生醫</div>35-45 歲有家族病史的你，為什麼現在該做細胞儲存</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L7</span><span class="layer-title">反問</span>
+      <div class="reflection">
+        <div class="q"><strong>結構化顧問派：</strong>鎖定條件夠具體？</div>
+        <div class="q"><strong>高客單轉化派：</strong>有把不對的人篩走？</div>
+        <div class="q"><strong>執行長：</strong>觀眾會覺得被冒犯嗎？</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L8</span><span class="layer-title">踩雷</span>
+      <div class="trap"><span class="t">⚠</span>鎖定太窄 → 觸及過少，演算法不推。</div>
+      <div class="trap"><span class="t">⚠</span>鎖定歧視性條件（性別 / 地域）→ 形象風險。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L9</span><span class="layer-title">提示詞</span>
+      <div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>【任務：曬過程 × 受眾鎖定 腳本】
+客戶：【填入】
+鎖定受眾：【填入年齡 / 收入 / 產業 / 角色】
+長度：【45秒】
+
+請產出腳本：
+① 前3秒：直接點名「這支只給 X 看」
+② 中段：針對這群人的專屬痛點 + 解法
+③ 結尾：篩選型 CTA「符合這條件的找我」
+④ 鎖定條件要具體、不歧視
+⑤ 要有底氣，不卑不亢</div>
+    </div>
+  </div>
+</div>
+
+<!-- 1-13 曬過程 × 窺私慾 (獨家) -->
+<div class="card flagship" id="card-1-13">
+  <div class="card-head">
+    <div>
+      <div class="card-id">CARD 1-13</div>
+      <div class="card-title">曬過程 <span class="x">×</span> 窺私慾 ★</div>
+      <div class="card-tags">
+        <span class="tag flag">★ 獨家觸發器</span>
+        <span class="tag goal">目標 03 建立IP</span>
+        <span class="tag">情緒扳機</span>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="layer"><span class="layer-label">L1</span><span class="layer-title">心理機制（極度求真派：破除禁忌）</span>
+      <div class="layer-content">展示「別人看不到的幕後」——不是刻意揭密，而是自然打開平常不公開的角落。觀眾有天生的窺私慾，看到「內部視角」會有「我變自己人」的親密感。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L2</span><span class="layer-title">鉤子</span>
+      <div class="layer-content"><div class="hook">「這是律師事務所客戶走了之後的樣子，<br>平常我們不會讓你看到。」</div></div>
+    </div>
+    <div class="layer"><span class="layer-label">L3</span><span class="layer-title">標題</span>
+      <div class="layer-content">公式：<strong>「偷偷拍」「不能說的」「只給你看」</strong>。情緒詞：獨家、秘密、親密。
+        <div class="examples">
+          <div class="example"><div class="who">職人</div>律師下班後真實的樣子（只給追蹤我的你）</div>
+          <div class="example"><div class="who">個人 IP</div>我平常的素顏狀態（不對外公開版）</div>
+        </div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L4</span><span class="layer-title">七派</span>
+      <div class="fusion-stack">
+        <div class="fusion-row"><div class="who">高客單轉化派</div><div class="what">窺私慾 = 親密感 = 追蹤率爆發。適合初期累積鐵粉。</div></div>
+        <div class="fusion-row"><div class="who">品牌整合派</div><div class="what">「別人看不到」要跟品牌價值觀連動，不是單純私密而已。</div></div>
+        <div class="fusion-row"><div class="who">結構化顧問派</div><div class="what">不是所有幕後都值得看——要篩有價值的幕後，不是垃圾日常。</div></div>
+        <div class="fusion-row"><div class="who">真實對話派</div><div class="what">真實就好，不要擺拍私密感。假的一秒被看穿。</div></div>
+        <div class="fusion-row"><div class="who">在地口語派</div><div class="what">「欸我偷偷跟你說」「這個不能讓別人知道喔」——台灣人最吃的親密語氣。</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L5</span><span class="layer-title">目標</span>
+      <div class="kpi-block">
+        <div class="kpi-item"><div class="k">主目標</div><div class="v">03 建立個人 IP</div></div>
+        <div class="kpi-item"><div class="k">副目標</div><div class="v">05 建立信任</div></div>
+        <div class="kpi-item"><div class="k">核心 KPI</div><div class="v">追蹤率｜儲存率</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L6</span><span class="layer-title">範例</span>
+      <div class="examples">
+        <div class="example"><div class="who">律師</div>律師事務所的下班後（清潔、歸檔、泡咖啡）</div>
+        <div class="example"><div class="who">個人 IP（家寧）</div>拍攝結束後的卸妝時間（真實狀態）</div>
+        <div class="example"><div class="who">餐飲</div>打烊後的廚房真實樣子（清潔流程）</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L7</span><span class="layer-title">反問</span>
+      <div class="reflection">
+        <div class="q"><strong>結構化顧問派：</strong>這幕後有價值，還是垃圾日常？</div>
+        <div class="q"><strong>品牌整合派：</strong>跟品牌價值觀連動嗎？</div>
+        <div class="q"><strong>極度求真派：</strong>真的私密還是擺拍？</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L8</span><span class="layer-title">踩雷</span>
+      <div class="trap"><span class="t">⚠</span>過度私密 → 形象崩壞（醫師 / 律師不適合）。</div>
+      <div class="trap"><span class="t">⚠</span>客戶隱私入鏡 → 違反保密義務，會被告。</div>
+      <div class="trap"><span class="t">⚠</span>員工入鏡未簽肖像同意書 → 法律風險。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L9</span><span class="layer-title">提示詞</span>
+      <div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>【任務：曬過程 × 窺私慾 腳本】
+客戶：【填入】
+幕後場景：【填入，例 下班後 / 開會前 / 打烊後】
+長度：【30秒 / 45秒】
+
+請產出腳本：
+① 前3秒：親密語氣「只給你看」
+② 中段：幕後片段（有價值的那種，非垃圾日常）
+③ 結尾：「追蹤我看更多幕後」
+④ 幕後必須綁品牌價值
+⑤ 避開：客戶隱私、員工未同意、過度私密
+⑥ 台灣親密語氣：「偷偷跟你說」「不能讓別人知道喔」
+
+輸出：分鏡 + 親密感運鏡建議</div>
+    </div>
+  </div>
+</div>
+
+<!-- 1-14 曬過程 × FOMO (獨家) -->
+<div class="card flagship" id="card-1-14">
+  <div class="card-head">
+    <div>
+      <div class="card-id">CARD 1-14</div>
+      <div class="card-title">曬過程 <span class="x">×</span> FOMO 緊迫 ★</div>
+      <div class="card-tags">
+        <span class="tag flag">★ 獨家觸發器</span>
+        <span class="tag goal">目標 08 帶業績</span>
+        <span class="tag">情緒扳機</span>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="layer"><span class="layer-label">L1</span><span class="layer-title">心理機制（高客單轉化派：稀缺性）</span>
+      <div class="layer-content">在流程中明確告訴觀眾「這件事只做這一次 / 這個月只接 X 個 / 明天就要截止」。Fear Of Missing Out（錯失恐懼）會逼觀眾立刻行動，不是觀望。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L2</span><span class="layer-title">鉤子</span>
+      <div class="layer-content"><div class="hook">「這個月我只接 3 個新客戶，<br>現在剩 1 個名額，倒數 48 小時。」</div></div>
+    </div>
+    <div class="layer"><span class="layer-label">L3</span><span class="layer-title">標題</span>
+      <div class="layer-content">公式：<strong>「只剩 X」「倒數 X 小時」「過了就沒」「最後一次」</strong>。情緒詞：來不及、錯過、再見。
+        <div class="examples">
+          <div class="example"><div class="who">服務業</div>我這個月最後 1 個客戶名額，倒數 48 小時</div>
+          <div class="example"><div class="who">電商</div>這批貨賣完就不會再進，剩 5 件</div>
+        </div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L4</span><span class="layer-title">七派</span>
+      <div class="fusion-stack">
+        <div class="fusion-row"><div class="who">高客單轉化派</div><div class="what">稀缺性是轉化最強的一根槓桿。但必須「真的稀缺」，假稀缺會被識破。</div></div>
+        <div class="fusion-row"><div class="who">品牌整合派</div><div class="what">FOMO 必須綁品牌價值——不是因為賣不出，是因為你有能力限額。</div></div>
+        <div class="fusion-row"><div class="who">結構化顧問派</div><div class="what">結構：為什麼只有 X 個（產能 / 時間 / 資源）→ 現在的狀態 → 行動選項。</div></div>
+        <div class="fusion-row"><div class="who">真實對話派</div><div class="what">真的限額，月底真的關，不然下次觀眾就不信了。</div></div>
+        <div class="fusion-row"><div class="who">在地口語派</div><div class="what">「真的最後幾個」「過了就沒了」「現在不決定會後悔喔」。</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L5</span><span class="layer-title">目標</span>
+      <div class="kpi-block">
+        <div class="kpi-item"><div class="k">主目標</div><div class="v">08 直接帶業績</div></div>
+        <div class="kpi-item"><div class="k">副目標</div><div class="v">09 活動導流</div></div>
+        <div class="kpi-item"><div class="k">核心 KPI</div><div class="v">CTR｜轉換率</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L6</span><span class="layer-title">範例</span>
+      <div class="examples">
+        <div class="example"><div class="who">律師</div>年底前只接 3 個新企業顧問，剩 1 位</div>
+        <div class="example"><div class="who">生醫</div>今年最後一批免費健檢名額，剩 15 位</div>
+        <div class="example"><div class="who">個人 IP 代營運</div>12 月只收 2 個新案，下批要等 3 月</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L7</span><span class="layer-title">反問</span>
+      <div class="reflection">
+        <div class="q"><strong>高客單轉化派：</strong>真的稀缺還是假稀缺？</div>
+        <div class="q"><strong>品牌整合派：</strong>綁品牌價值了嗎？</div>
+        <div class="q"><strong>極度求真派：</strong>月底真的會關？</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L8</span><span class="layer-title">踩雷</span>
+      <div class="trap"><span class="t">⚠</span>假稀缺（每月都說最後機會）→ 信任崩壞。</div>
+      <div class="trap"><span class="t">⚠</span>醫療廣告禁用 FOMO 強推（違反醫療法第 86 條）。</div>
+      <div class="trap"><span class="t">⚠</span>律師受業務推展規範限制，FOMO 要謹慎。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L9</span><span class="layer-title">提示詞</span>
+      <div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>【任務：曬過程 × FOMO 腳本】
+客戶：【填入】
+稀缺類型：【名額 / 時間 / 數量】
+具體數字：【填入，例 剩 1 位 / 倒數 48 小時】
+長度：【30秒】
+
+請產出腳本：
+① 前3秒：直接報稀缺狀態
+② 中段：為什麼只有這麼多（產能 / 時間）+ 現在狀態
+③ 結尾：明確 CTA + 倒數時間
+④ 必須真的稀缺（月底真的關）
+⑤ 綁品牌價值（不是賣不出）
+⑥ 醫療 / 律師客戶避開 FOMO 強推
+⑦ 台灣口語：「真的最後幾個」
+
+輸出：分段字幕稿 + 倒數視覺建議</div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /cards-grid -->
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- 容器 ② 說故事 -->
+<!-- ═══════════════════════════════════════════════ -->
+
+<div class="container-head" id="c2">
+  <div class="num">02</div>
+  <div class="info">
+    <div class="title">說故事｜Storytelling</div>
+    <div class="subtitle">用真實故事建立 IP 人格 · 故事比說教更能瓦解防禦心 · 最適合累積鐵粉</div>
+  </div>
+  <div class="count">14 格作戰卡</div>
+</div>
+
+<div class="cards-grid">
+
+<!-- 2-1 說故事 × 反差 -->
+<div class="card flagship" id="card-2-1">
+  <div class="card-head">
+    <div>
+      <div class="card-id">CARD 2-1</div>
+      <div class="card-title">說故事 <span class="x">×</span> 反差</div>
+      <div class="card-tags">
+        <span class="tag flag">★ 旗艦格</span>
+        <span class="tag goal">目標 03 建立IP</span>
+        <span class="tag">認知衝突</span>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="layer"><span class="layer-label">L1</span><span class="layer-title">心理機制（極度求真派：角色翻轉）</span>
+      <div class="layer-content">講「打臉成功」的故事——以前被質疑、被看扁、被拒絕的事，後來證明你是對的。反差越大、落差越真實，觀眾越有代入感。這類故事分享率最高，因為每個人都有「當初不被相信」的經驗。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L2</span><span class="layer-title">極致留存派・鉤子結構</span>
+      <div class="layer-content">結構：<strong>結局倒敘 + 當時狀況</strong>。先丟結果，再倒回去講過程。
+        <div class="hook">「3 年前他說我這條路走不通，<br>現在他是我的客戶。」</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L3</span><span class="layer-title">情緒標題派・標題公式</span>
+      <div class="layer-content">公式：<strong>「當年 vs 現在」「打臉成功」「被看扁的那天」</strong>。情緒詞：爽、翻身、逆襲、證明。
+        <div class="examples">
+          <div class="example"><div class="who">專業服務</div>當年笑我的人，現在都在付我錢｜逆襲路</div>
+          <div class="example"><div class="who">個人 IP</div>我被退稿 47 次的那本書，現在變教材</div>
+        </div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L4</span><span class="layer-title">七派融合思考</span>
+      <div class="fusion-stack">
+        <div class="fusion-row"><div class="who">高客單轉化派</div><div class="what">反差故事會建立「付費安全感」——客戶看到「他連這關都過了，我的案子小菜一碟」。</div></div>
+        <div class="fusion-row"><div class="who">品牌整合派</div><div class="what">反差要綁品牌核心。不是拚慘，是拚「專業之路的真實」。</div></div>
+        <div class="fusion-row"><div class="who">結構化顧問派</div><div class="what">結構：<strong>當時的處境 → 關鍵事件 → 我做了什麼 → 結果</strong>。四段，不多不少。</div></div>
+        <div class="fusion-row"><div class="who">真實對話派</div><div class="what">真實的故事有細節：日期、地點、對話、天氣。虛構的故事會漏細節。</div></div>
+        <div class="fusion-row"><div class="who">在地口語派</div><div class="what">「那時候真的很慘」「想起來都覺得」——台灣人聽到這種開場會自動靠近。</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L5</span><span class="layer-title">目標 + KPI</span>
+      <div class="kpi-block">
+        <div class="kpi-item"><div class="k">主目標</div><div class="v">03 建立個人 IP</div></div>
+        <div class="kpi-item"><div class="k">副目標</div><div class="v">05 建立信任</div></div>
+        <div class="kpi-item"><div class="k">核心 KPI</div><div class="v">分享率｜完播率 50%+</div></div>
+        <div class="kpi-item"><div class="k">CTA</div><div class="v">追蹤看更多故事</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L6</span><span class="layer-title">三個產業範例題目</span>
+      <div class="examples">
+        <div class="example"><div class="who">律師</div>當年我接的第一個案子，對方律師笑我沒經驗，結果⋯</div>
+        <div class="example"><div class="who">生醫</div>10 年前業界說細胞儲存是噱頭，去年這位媽媽傳訊息給我</div>
+        <div class="example"><div class="who">個人 IP</div>13 年前第一支影片 4 個讚，現在單支 400 萬觀看</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L7</span><span class="layer-title">CAIO 反問清單</span>
+      <div class="reflection">
+        <div class="q"><strong>結構化顧問派：</strong>故事四段結構齊全？</div>
+        <div class="q"><strong>品牌整合派：</strong>反差綁專業，不是純拚慘？</div>
+        <div class="q"><strong>極度求真派：</strong>有具體細節嗎？</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L8</span><span class="layer-title">踩雷警告</span>
+      <div class="trap"><span class="t">⚠ 坑 1：</span>拚慘過頭 → 變成賣慘，專業形象受損。</div>
+      <div class="trap"><span class="t">⚠ 坑 2：</span>指名被打臉的對象 → 妨害名譽風險。</div>
+      <div class="trap"><span class="t">⚠ 坑 3：</span>故事誇張化 → 觀眾一看就出戲，反效果。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L9</span><span class="layer-title">一鍵複製：CAIO 生腳本提示詞</span>
+      <div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>【任務：說故事 × 反差 腳本】
+客戶：【填入】
+故事素材：【填入真實經歷，含時間地點】
+長度：【45秒 / 60秒】
+
+請產出腳本：
+① 前3秒：結局倒敘，先丟反差結果
+② 中段 四段結構：當時處境 → 關鍵事件 → 我做了什麼 → 結果
+③ 結尾：追蹤看更多故事
+④ 必須有具體細節（日期、對話、數字）
+⑤ 不指名被打臉的人（避法律風險）
+⑥ 反差綁專業，不是拚慘
+⑦ 在地口語：「那時候真的很慘」
+
+輸出：分段字幕稿 + 畫面提示（當年 vs 現在對比剪輯）</div>
+    </div>
+  </div>
+</div>
+
+<!-- 2-2 說故事 × 吐槽 -->
+<div class="card" id="card-2-2">
+  <div class="card-head">
+    <div>
+      <div class="card-id">CARD 2-2</div>
+      <div class="card-title">說故事 <span class="x">×</span> 吐槽</div>
+      <div class="card-tags">
+        <span class="tag goal">目標 03 建立IP</span>
+        <span class="tag">認知衝突</span>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="layer"><span class="layer-label">L1</span><span class="layer-title">心理機制（真實對話派：共同敵人）</span>
+      <div class="layer-content">講「讓你真的很氣的一個真實故事」—— 客戶、合作方、產業現象。觀眾會因為「你有同感」而站你這邊。建立共同敵人 = 快速建立陣營。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L2</span><span class="layer-title">極致留存派・鉤子結構</span>
+      <div class="layer-content">結構：<strong>情緒直給 + 事件預告</strong>。
+        <div class="hook">「昨天我氣到睡不著。<br>你聽我講完這個故事，你也會氣。」</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L3</span><span class="layer-title">情緒標題派・標題公式</span>
+      <div class="layer-content">公式：<strong>「我真的氣」「誇張」「不敢相信」</strong>。情緒詞：炸裂、無語、神煩、崩潰。
+        <div class="examples">
+          <div class="example"><div class="who">服務業</div>昨天這個客戶讓我氣到睡不著，你聽完也會氣</div>
+          <div class="example"><div class="who">個人 IP</div>在咖啡廳旁邊那桌的對話，我整個炸裂</div>
+        </div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L4</span><span class="layer-title">七派融合思考</span>
+      <div class="fusion-stack">
+        <div class="fusion-row"><div class="who">高客單轉化派</div><div class="what">吐槽故事讓受眾「對號入座」—— 看完會想「我不要變這種客戶」，反而提高付費配合度。</div></div>
+        <div class="fusion-row"><div class="who">品牌整合派</div><div class="what">吐槽要「對事不對人」，對產業現象而不是特定人。</div></div>
+        <div class="fusion-row"><div class="who">結構化顧問派</div><div class="what">結構：<strong>情境 → 衝突 → 我的反應 → 啟示</strong>。最後一步啟示不能少。</div></div>
+        <div class="fusion-row"><div class="who">真實對話派</div><div class="what">情緒要真，不要演。真的氣就氣，觀眾會感受到。</div></div>
+        <div class="fusion-row"><div class="who">在地口語派</div><div class="what">「我跟你講」「真的誇張」「你敢信？」——台灣吐槽語彙。</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L5</span><span class="layer-title">目標 + KPI</span>
+      <div class="kpi-block">
+        <div class="kpi-item"><div class="k">主目標</div><div class="v">03 建立個人 IP</div></div>
+        <div class="kpi-item"><div class="k">核心 KPI</div><div class="v">留言率｜分享率</div></div>
+        <div class="kpi-item"><div class="k">CTA</div><div class="v">你也遇過嗎？留言</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L6</span><span class="layer-title">三個產業範例題目</span>
+      <div class="examples">
+        <div class="example"><div class="who">律師</div>有個老闆問我「可不可以先打官司再付錢」，我的臉...</div>
+        <div class="example"><div class="who">生醫</div>聽到客戶說「幹細胞應該像冰棒一樣冰」，我沉默 3 秒</div>
+        <div class="example"><div class="who">代理服務</div>客戶半夜兩點傳訊息：「明天早上要發，幫我改一下」</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L7</span><span class="layer-title">CAIO 反問</span>
+      <div class="reflection">
+        <div class="q"><strong>品牌整合派：</strong>對事不對人？</div>
+        <div class="q"><strong>結構化顧問派：</strong>有給啟示，不只抱怨？</div>
+        <div class="q"><strong>執行長：</strong>觀眾會站你這邊嗎？</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L8</span><span class="layer-title">踩雷警告</span>
+      <div class="trap"><span class="t">⚠</span>認得出是哪個客戶 → 違反保密。</div>
+      <div class="trap"><span class="t">⚠</span>情緒過頭沒結論 → 失去專業感。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L9</span><span class="layer-title">提示詞</span>
+      <div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>【任務：說故事 × 吐槽 腳本】
+客戶：【填入】
+吐槽故事：【填入真實事件，但匿名化】
+長度：【45秒】
+
+請產出腳本：
+① 前3秒：情緒直給 + 事件預告
+② 中段 四段：情境 → 衝突 → 我的反應 → 啟示
+③ 結尾：你也遇過嗎？留言
+④ 對事不對人，匿名化
+⑤ 情緒要真，不要演
+⑥ 在地口語：「我跟你講」「真的誇張」</div>
+    </div>
+  </div>
+</div>
+
+<!-- 2-3 說故事 × 貼金 -->
+<div class="card" id="card-2-3">
+  <div class="card-head">
+    <div>
+      <div class="card-id">CARD 2-3</div>
+      <div class="card-title">說故事 <span class="x">×</span> 貼金</div>
+      <div class="card-tags">
+        <span class="tag goal">目標 05 建立信任</span>
+        <span class="tag">認知衝突</span>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="layer"><span class="layer-label">L1</span><span class="layer-title">心理機制（品牌整合派：社會證明）</span>
+      <div class="layer-content">講「我最榮耀的那一刻」的故事。不是炫耀，是用一個具體時刻讓觀眾「感受到」你的專業高度。高光時刻 + 謙虛語氣 = 最強信任建立。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L2</span><span class="layer-title">極致留存派・鉤子結構</span>
+      <div class="layer-content">結構：<strong>場景重建 + 身份重量</strong>。
+        <div class="hook">「那天我收到一通電話，<br>對方是我 10 年前看著螢幕仰望的那個人。」</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L3</span><span class="layer-title">情緒標題派</span>
+      <div class="layer-content">公式：<strong>「那天我」「我永遠記得」「人生第一次」</strong>。情緒詞：激動、榮幸、不敢置信。
+        <div class="examples">
+          <div class="example"><div class="who">專業服務</div>那天一家上市公司法務長主動找我，對話內容是⋯</div>
+          <div class="example"><div class="who">個人 IP</div>我永遠記得第一次站上那個舞台的感覺</div>
+        </div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L4</span><span class="layer-title">七派</span>
+      <div class="fusion-stack">
+        <div class="fusion-row"><div class="who">高客單轉化派</div><div class="what">高光故事建立心理錨點。客戶看到「你接過的都是大咖」會自動提高付費心理。</div></div>
+        <div class="fusion-row"><div class="who">品牌整合派</div><div class="what">重點不是「大咖名字」，是「為什麼他選我」—— 綁回你的核心能力。</div></div>
+        <div class="fusion-row"><div class="who">結構化顧問派</div><div class="what">結構：<strong>場景 → 對話 → 我做了什麼 → 現在的影響</strong>。</div></div>
+        <div class="fusion-row"><div class="who">真實對話派</div><div class="what">真實細節：時間、地點、穿什麼、心跳。</div></div>
+        <div class="fusion-row"><div class="who">在地口語派</div><div class="what">「那天真的太榮幸」「我到現在都覺得像夢」—— 謙虛感必備。</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L5</span><span class="layer-title">目標 + KPI</span>
+      <div class="kpi-block">
+        <div class="kpi-item"><div class="k">主目標</div><div class="v">05 建立信任</div></div>
+        <div class="kpi-item"><div class="k">副目標</div><div class="v">07 轉單品質</div></div>
+        <div class="kpi-item"><div class="k">核心 KPI</div><div class="v">收藏率｜高客單詢問</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L6</span><span class="layer-title">範例</span>
+      <div class="examples">
+        <div class="example"><div class="who">律師</div>一家上市公司法務長打電話找我那天，他說的第一句話是⋯</div>
+        <div class="example"><div class="who">生醫</div>接受國家生技獎那天，我爸在台下哭</div>
+        <div class="example"><div class="who">個人 IP</div>第一次跟 Gucci 合作那天，我手在抖</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L7</span><span class="layer-title">反問</span>
+      <div class="reflection">
+        <div class="q"><strong>品牌整合派：</strong>重點在你的能力，還是在大咖名字？</div>
+        <div class="q"><strong>在地口語派：</strong>有謙虛感嗎？不會讓人反感？</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L8</span><span class="layer-title">踩雷</span>
+      <div class="trap"><span class="t">⚠</span>炫耀感太重 → 觀眾反感。</div>
+      <div class="trap"><span class="t">⚠</span>揭露客戶隱私 → 違反保密。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L9</span><span class="layer-title">提示詞</span>
+      <div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>【任務：說故事 × 貼金 腳本】
+客戶：【填入】
+高光時刻：【填入真實經歷】
+長度：【45秒 / 60秒】
+
+請產出腳本：
+① 前3秒：場景重建 + 身份重量
+② 中段：場景 → 對話 → 我做了什麼 → 現在的影響
+③ 結尾：追蹤看更多故事
+④ 重點綁「為什麼他選我」
+⑤ 真實細節（時間、穿著、心跳）
+⑥ 謙虛語氣：「太榮幸」「像夢一樣」
+⑦ 客戶資訊匿名化</div>
+    </div>
+  </div>
+</div>
+
+<!-- 2-4 說故事 × 成本 -->
+<div class="card" id="card-2-4">
+  <div class="card-head">
+    <div>
+      <div class="card-id">CARD 2-4</div>
+      <div class="card-title">說故事 <span class="x">×</span> 成本</div>
+      <div class="card-tags">
+        <span class="tag goal">目標 05 建立信任</span>
+        <span class="tag">利益直給</span>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="layer"><span class="layer-label">L1</span><span class="layer-title">心理機制（極度求真派：真實代價）</span>
+      <div class="layer-content">講「賠錢的故事」—— 你曾經犯過什麼錯、付過什麼代價。承認錯誤比誇耀成就更能建立信任，因為這才是真實。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L2</span><span class="layer-title">鉤子</span>
+      <div class="layer-content">結構：<strong>具體金額 + 犯什麼錯</strong>。
+        <div class="hook">「我曾經因為一個錯誤，<br>賠了一個客戶 18 萬。」</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L3</span><span class="layer-title">標題</span>
+      <div class="layer-content">公式：<strong>「賠了 X 萬」「我花 X 元學到」「這次教訓」</strong>。
+        <div class="examples">
+          <div class="example"><div class="who">服務業</div>這支影片讓我賠了 20 萬，但我學到這件事</div>
+          <div class="example"><div class="who">電商</div>第一批貨我壓了 80 萬，結果只賣出 3 件</div>
+        </div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L4</span><span class="layer-title">七派</span>
+      <div class="fusion-stack">
+        <div class="fusion-row"><div class="who">高客單轉化派</div><div class="what">承認賠錢 = 建立「我為你把關」的信任感。客戶會覺得「你踩過坑，能幫我避開」。</div></div>
+        <div class="fusion-row"><div class="who">品牌整合派</div><div class="what">賠錢故事的結尾必須導向「所以我現在怎麼做」，綁回你的服務價值。</div></div>
+        <div class="fusion-row"><div class="who">結構化顧問派</div><div class="what">結構：<strong>錯誤 → 代價 → 原因 → 現在怎麼避免</strong>。</div></div>
+        <div class="fusion-row"><div class="who">真實對話派</div><div class="what">金額要具體。「賠了好幾萬」 VS 「賠了 18 萬」差很多。</div></div>
+        <div class="fusion-row"><div class="who">在地口語派</div><div class="what">「痛一次就學乖了」「這個錢是繳學費」。</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L5</span><span class="layer-title">目標</span>
+      <div class="kpi-block">
+        <div class="kpi-item"><div class="k">主目標</div><div class="v">05 建立信任</div></div>
+        <div class="kpi-item"><div class="k">核心 KPI</div><div class="v">收藏率｜儲存率</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L6</span><span class="layer-title">範例</span>
+      <div class="examples">
+        <div class="example"><div class="who">律師</div>我第三個案子輸了，客戶損失 50 萬，我從這學到的事</div>
+        <div class="example"><div class="who">生醫</div>實驗室有一次失誤賠 200 萬，現在 SOP 多了三道閘門</div>
+        <div class="example"><div class="who">個人 IP</div>我拍過最失敗的一支影片花了 5 萬只有 30 人看</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L7</span><span class="layer-title">反問</span>
+      <div class="reflection">
+        <div class="q"><strong>品牌整合派：</strong>有導向「現在怎麼做」嗎？</div>
+        <div class="q"><strong>極度求真派：</strong>金額夠具體嗎？</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L8</span><span class="layer-title">踩雷</span>
+      <div class="trap"><span class="t">⚠</span>只談錯誤不講解法 → 客戶會擔心你。</div>
+      <div class="trap"><span class="t">⚠</span>錯誤涉及客戶隱私 → 不能講。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L9</span><span class="layer-title">提示詞</span>
+      <div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>【任務：說故事 × 成本 腳本】
+客戶：【填入】
+賠錢故事：【填入真實經歷 + 具體金額】
+長度：【45秒】
+
+請產出腳本：
+① 前3秒：具體金額 + 犯什麼錯
+② 中段：錯誤 → 代價 → 原因 → 現在怎麼避免
+③ 結尾：這就是我為你把關的底氣
+④ 金額要具體（不能說好幾萬）
+⑤ 不涉及客戶隱私
+⑥ 在地口語：「這個錢是繳學費」</div>
+    </div>
+  </div>
+</div>
+
+<!-- 2-5 說故事 × 乾貨 -->
+<div class="card flagship" id="card-2-5">
+  <div class="card-head">
+    <div>
+      <div class="card-id">CARD 2-5</div>
+      <div class="card-title">說故事 <span class="x">×</span> 乾貨輸出 ★</div>
+      <div class="card-tags">
+        <span class="tag flag">★ 獨家觸發器</span>
+        <span class="tag goal">目標 04 教育市場</span>
+        <span class="tag">利益直給</span>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="layer"><span class="layer-label">L1</span><span class="layer-title">心理機制（結構化顧問派：故事化教學）</span>
+      <div class="layer-content">用「血淚教訓」把乾貨包裝成故事。純知識觀眾會滑掉，但「我踩過這個坑，你不要踩」的故事，觀眾會想聽完。這是儲存率最高的組合。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L2</span><span class="layer-title">鉤子</span>
+      <div class="layer-content">結構：<strong>踩坑宣告 + 數量預告</strong>。
+        <div class="hook">「我在這個產業踩過 7 個雷，<br>今天分享前三個，你不要跟我一樣。」</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L3</span><span class="layer-title">標題</span>
+      <div class="layer-content">公式：<strong>「血淚教訓」「踩過 X 個雷」「新手不要犯」</strong>。
+        <div class="examples">
+          <div class="example"><div class="who">任何產業</div>我走了 3 年才搞懂的事，希望你不要再浪費時間</div>
+          <div class="example"><div class="who">專業服務</div>接客戶前一定要問這 5 個問題（我付過錢學到的）</div>
+        </div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L4</span><span class="layer-title">七派</span>
+      <div class="fusion-stack">
+        <div class="fusion-row"><div class="who">高客單轉化派</div><div class="what">血淚乾貨是最強的「先試後買」——觀眾試著照你的方法，發現有用，會來付費要完整版。</div></div>
+        <div class="fusion-row"><div class="who">品牌整合派</div><div class="what">每個教訓都要綁回你的專業能力。</div></div>
+        <div class="fusion-row"><div class="who">結構化顧問派</div><div class="what">結構：<strong>教訓 1（故事）→ 教訓 2（故事）→ 教訓 3（故事）→ 結論</strong>。用故事包乾貨。</div></div>
+        <div class="fusion-row"><div class="who">真實對話派</div><div class="what">每個教訓要有具體情境，不是空話。</div></div>
+        <div class="fusion-row"><div class="who">在地口語派</div><div class="what">「你不要像我一樣」「拜託你千萬不要」—— 朋友語氣。</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L5</span><span class="layer-title">目標</span>
+      <div class="kpi-block">
+        <div class="kpi-item"><div class="k">主目標</div><div class="v">04 教育市場</div></div>
+        <div class="kpi-item"><div class="k">副目標</div><div class="v">05 建立信任</div></div>
+        <div class="kpi-item"><div class="k">核心 KPI</div><div class="v">儲存率 7%+｜完播 50%+</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L6</span><span class="layer-title">範例</span>
+      <div class="examples">
+        <div class="example"><div class="who">律師</div>我在商業訴訟踩過的 3 個雷：都是客戶「以為沒事」的合約條款</div>
+        <div class="example"><div class="who">生醫</div>細胞保存 10 年學到的 3 件事：客戶最常問錯的問題</div>
+        <div class="example"><div class="who">個人 IP</div>13 年自媒體踩過的坑，新手拜託不要再犯</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L7</span><span class="layer-title">反問</span>
+      <div class="reflection">
+        <div class="q"><strong>結構化顧問派：</strong>每個教訓都有故事嗎？</div>
+        <div class="q"><strong>品牌整合派：</strong>綁回專業能力了？</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L8</span><span class="layer-title">踩雷</span>
+      <div class="trap"><span class="t">⚠</span>教訓太籠統 → 變成心靈雞湯，沒乾貨感。</div>
+      <div class="trap"><span class="t">⚠</span>點名別人的錯 → 引戰 / 被告。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L9</span><span class="layer-title">提示詞</span>
+      <div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>【任務：說故事 × 乾貨 腳本】
+客戶：【填入】
+血淚教訓：【填入 3 個真實故事】
+長度：【60秒 / 90秒】
+
+請產出腳本：
+① 前3秒：踩坑宣告 + 數量預告
+② 中段：教訓 1（含故事）→ 教訓 2 → 教訓 3 → 總結
+③ 結尾：儲存 + 追蹤
+④ 每個教訓必須有具體情境
+⑤ 綁回專業能力
+⑥ 朋友語氣：「你不要像我一樣」
+⑦ 不點名別人</div>
+    </div>
+  </div>
+</div>
+
+<!-- 2-6 說故事 × 光練不說 -->
+<div class="card" id="card-2-6">
+  <div class="card-head">
+    <div>
+      <div class="card-id">CARD 2-6</div>
+      <div class="card-title">說故事 <span class="x">×</span> 光練不說</div>
+      <div class="card-tags">
+        <span class="tag goal">目標 02 記憶點</span>
+        <span class="tag">利益直給</span>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="layer"><span class="layer-label">L1</span><span class="layer-title">心理機制（真實對話派：留白的力量）</span>
+      <div class="layer-content">故事講一半、結局不說——讓觀眾追蹤等下一集。系列型帳號的經典手法。也可以是「有些故事我不能說，但能告訴你的是⋯」。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L2</span><span class="layer-title">鉤子</span>
+      <div class="layer-content">結構：<strong>故事開場 + 神秘停頓</strong>。
+        <div class="hook">「這個客戶做的事我不能說，<br>但我可以告訴你結局。」</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L3</span><span class="layer-title">標題</span>
+      <div class="layer-content">公式：<strong>「我不能說」「故事下回分解」「保密條款」</strong>。
+        <div class="examples"><div class="example"><div class="who">任何</div>這個故事上半部在影片裡，下半部追蹤看下一支</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L4</span><span class="layer-title">七派</span>
+      <div class="fusion-stack">
+        <div class="fusion-row"><div class="who">高客單轉化派</div><div class="what">留白 = 追蹤誘因。觀眾想知道結局就得追蹤。</div></div>
+        <div class="fusion-row"><div class="who">品牌整合派</div><div class="what">「我有故事但不能全說」= 建立專業守密形象。</div></div>
+        <div class="fusion-row"><div class="who">結構化顧問派</div><div class="what">留白要「有意義」，不是亂留。必須在合理的戲劇點停住。</div></div>
+        <div class="fusion-row"><div class="who">真實對話派</div><div class="what">「真的有這故事」—— 太假會被識破。</div></div>
+        <div class="fusion-row"><div class="who">在地口語派</div><div class="what">「這個真的不能說」「欸我好想跟你講但⋯」。</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L5</span><span class="layer-title">目標</span>
+      <div class="kpi-block">
+        <div class="kpi-item"><div class="k">主目標</div><div class="v">02 記憶點</div></div>
+        <div class="kpi-item"><div class="k">副目標</div><div class="v">03 建立 IP</div></div>
+        <div class="kpi-item"><div class="k">核心 KPI</div><div class="v">追蹤轉換率｜回訪率</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L6</span><span class="layer-title">範例</span>
+      <div class="examples">
+        <div class="example"><div class="who">律師</div>這個老闆打的官司我不能說贏誰，但這條合約條款你一定要懂</div>
+        <div class="example"><div class="who">個人 IP</div>那天合作的細節我簽了 NDA，但我學到的一件事是⋯</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L7</span><span class="layer-title">反問</span>
+      <div class="reflection">
+        <div class="q"><strong>結構化顧問派：</strong>留白在合理戲劇點嗎？</div>
+        <div class="q"><strong>真實對話派：</strong>真的有故事嗎？</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L8</span><span class="layer-title">踩雷</span>
+      <div class="trap"><span class="t">⚠</span>一直留白不結案 → 觀眾失去耐心。</div>
+      <div class="trap"><span class="t">⚠</span>假裝有秘密 → 一看就出戲。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L9</span><span class="layer-title">提示詞</span>
+      <div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>【任務：說故事 × 光練不說 腳本】
+客戶：【填入】
+留白故事：【填入，含開頭 + 留白點 + 能給的啟示】
+長度：【30秒】
+
+請產出腳本：
+① 前3秒：故事開場 + 神秘停頓
+② 中段：能說的部分 + 為什麼不能說全部
+③ 結尾：給啟示 + 追蹤等下一集
+④ 留白必須在合理戲劇點
+⑤ 必須是真實故事
+⑥ 在地口語：「真的不能說」「我好想講⋯」</div>
+    </div>
+  </div>
+</div>
+
+<!-- 2-7 說故事 × 熱點 -->
+<div class="card" id="card-2-7">
+  <div class="card-head">
+    <div>
+      <div class="card-id">CARD 2-7</div>
+      <div class="card-title">說故事 <span class="x">×</span> 熱點</div>
+      <div class="card-tags">
+        <span class="tag goal">目標 01 曝光</span>
+        <span class="tag">社交貨幣</span>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="layer"><span class="layer-label">L1</span><span class="layer-title">心理機制（品牌整合派：時事親歷）</span>
+      <div class="layer-content">把正在發燒的社會事件「跟你的真實經歷連起來」。不是蹭熱點，是「這件事剛好跟我有關」。熱點自帶流量 + 個人故事 = 高分享。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L2</span><span class="layer-title">鉤子</span>
+      <div class="layer-content">結構：<strong>熱點關鍵詞 + 我剛好經歷過</strong>。
+        <div class="hook">「最近大家在討論 XX 事件，<br>我三年前剛好經歷過類似的事。」</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L3</span><span class="layer-title">標題</span>
+      <div class="layer-content">公式：<strong>「XX 事件」「我剛好遇過」「分享我的故事」</strong>。
+        <div class="examples"><div class="example"><div class="who">任何</div>最近 XX 熱搜，我三年前也遇過一模一樣的事</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L4</span><span class="layer-title">七派</span>
+      <div class="fusion-stack">
+        <div class="fusion-row"><div class="who">高客單轉化派</div><div class="what">熱點 + 親歷 = 短期觸及暴增。不要錯過時效（3-7 天內發）。</div></div>
+        <div class="fusion-row"><div class="who">品牌整合派</div><div class="what">熱點要綁回你的專業。律師只連法律熱點，醫師只連健康熱點。</div></div>
+        <div class="fusion-row"><div class="who">結構化顧問派</div><div class="what">結構：<strong>熱點事實 → 我的親歷 → 我學到什麼 → 對你的啟示</strong>。</div></div>
+        <div class="fusion-row"><div class="who">真實對話派</div><div class="what">真的有經歷才講，不要硬蹭。</div></div>
+        <div class="fusion-row"><div class="who">在地口語派</div><div class="what">「欸你有看到那個新聞嗎」「我剛好⋯」—— 像跟朋友聊天。</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L5</span><span class="layer-title">目標</span>
+      <div class="kpi-block">
+        <div class="kpi-item"><div class="k">主目標</div><div class="v">01 曝光</div></div>
+        <div class="kpi-item"><div class="k">核心 KPI</div><div class="v">觸及數｜分享率</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L6</span><span class="layer-title">範例</span>
+      <div class="examples">
+        <div class="example"><div class="who">律師</div>最近 XX 公司勞資案上熱搜，我 5 年前剛好處理過同類案</div>
+        <div class="example"><div class="who">生醫</div>再生醫療雙法上路，讓我想起 10 年前那批早期客戶</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L7</span><span class="layer-title">反問</span>
+      <div class="reflection">
+        <div class="q"><strong>品牌整合派：</strong>熱點綁專業嗎？</div>
+        <div class="q"><strong>真實對話派：</strong>真的有這經歷嗎？</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L8</span><span class="layer-title">踩雷</span>
+      <div class="trap"><span class="t">⚠</span>硬蹭熱點 → 形象崩壞。</div>
+      <div class="trap"><span class="t">⚠</span>敏感熱點（災難、政治）→ 形象風險。</div>
+      <div class="trap"><span class="t">⚠</span>律師 / 醫師提案件熱點 → 執業倫理問題。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L9</span><span class="layer-title">提示詞</span>
+      <div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>【任務：說故事 × 熱點 腳本】
+客戶：【填入】
+熱點：【填入】
+親歷故事：【填入真實相關經歷】
+長度：【45秒】
+
+請產出腳本：
+① 前3秒：熱點關鍵詞 + 我剛好經歷過
+② 中段：熱點事實 → 我的親歷 → 我學到 → 對你的啟示
+③ 結尾：追蹤看更多
+④ 必須真的有經歷（不硬蹭）
+⑤ 綁回專業
+⑥ 避開敏感熱點
+⑦ 3-7 天內發</div>
+    </div>
+  </div>
+</div>
+
+<!-- 2-8 說故事 × 懷舊 -->
+<div class="card" id="card-2-8">
+  <div class="card-head">
+    <div>
+      <div class="card-id">CARD 2-8</div>
+      <div class="card-title">說故事 <span class="x">×</span> 懷舊</div>
+      <div class="card-tags">
+        <span class="tag goal">目標 03 建立IP</span>
+        <span class="tag">社交貨幣</span>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="layer"><span class="layer-label">L1</span><span class="layer-title">心理機制（情緒標題派：集體記憶）</span>
+      <div class="layer-content">講「那年的我」—— 時空拉回過去的某一刻，讓同世代的觀眾產生「啊我也是」的共鳴。懷舊故事的分享率極高，因為觀眾會 tag 老朋友。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L2</span><span class="layer-title">鉤子</span>
+      <div class="layer-content">結構：<strong>年份 + 場景</strong>。
+        <div class="hook">「2012 年的我，<br>躲在廁所哭，因為剛失去第一個客戶。」</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L3</span><span class="layer-title">標題</span>
+      <div class="layer-content">公式：<strong>「那年的我」「X 年前」「還記得嗎」</strong>。情緒詞：青春、回不去、那時候。
+        <div class="examples">
+          <div class="example"><div class="who">個人 IP</div>15 年前剛出道的我，絕對想不到會走到這</div>
+          <div class="example"><div class="who">專業人士</div>10 年前我剛當律師那天，我以為的職場跟現在差超多</div>
+        </div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L4</span><span class="layer-title">七派</span>
+      <div class="fusion-stack">
+        <div class="fusion-row"><div class="who">高客單轉化派</div><div class="what">懷舊故事觸發「時間累積價值」感——你走了 X 年才走到今天，這就是你的客單依據。</div></div>
+        <div class="fusion-row"><div class="who">品牌整合派</div><div class="what">懷舊要指向「現在的我」，不是純回憶。</div></div>
+        <div class="fusion-row"><div class="who">結構化顧問派</div><div class="what">結構：<strong>那年的場景 → 那年的我 → 中間發生什麼 → 現在的我</strong>。</div></div>
+        <div class="fusion-row"><div class="who">真實對話派</div><div class="what">真的要有當年的照片 / 影片，視覺會加倍說服力。</div></div>
+        <div class="fusion-row"><div class="who">在地口語派</div><div class="what">「那時候真的」「想起來都⋯」「時間真的過很快」。</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L5</span><span class="layer-title">目標</span>
+      <div class="kpi-block">
+        <div class="kpi-item"><div class="k">主目標</div><div class="v">03 建立個人 IP</div></div>
+        <div class="kpi-item"><div class="k">核心 KPI</div><div class="v">分享率｜留言率</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L6</span><span class="layer-title">範例</span>
+      <div class="examples">
+        <div class="example"><div class="who">律師</div>2014 年我考上律師那天，我完全不知道職涯會怎樣走</div>
+        <div class="example"><div class="who">個人 IP</div>13 年前第一次站在鏡頭前的我，緊張到手發抖</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L7</span><span class="layer-title">反問</span>
+      <div class="reflection">
+        <div class="q"><strong>品牌整合派：</strong>有連到現在的我嗎？</div>
+        <div class="q"><strong>真實對話派：</strong>有當年的真實素材嗎？</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L8</span><span class="layer-title">踩雷</span>
+      <div class="trap"><span class="t">⚠</span>純回憶沒連結 → 觀眾無感。</div>
+      <div class="trap"><span class="t">⚠</span>年代感太老觀眾接不上 → 2010 年後較保險。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L9</span><span class="layer-title">提示詞</span>
+      <div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>【任務：說故事 × 懷舊 腳本】
+客戶：【填入】
+年份：【填入】
+當年的場景：【填入真實回憶】
+長度：【45秒】
+
+請產出腳本：
+① 前3秒：年份 + 場景
+② 中段：那年的我 → 中間發生什麼 → 現在的我
+③ 結尾：追蹤看完整故事
+④ 要有當年素材（照片 / 影片）
+⑤ 連到現在的專業能力
+⑥ 在地口語：「時間真的過很快」</div>
+    </div>
+  </div>
+</div>
+
+<!-- 2-9 說故事 × 賀爾蒙 -->
+<div class="card" id="card-2-9">
+  <div class="card-head">
+    <div>
+      <div class="card-id">CARD 2-9</div>
+      <div class="card-title">說故事 <span class="x">×</span> 賀爾蒙</div>
+      <div class="card-tags">
+        <span class="tag goal">目標 01 曝光</span>
+        <span class="tag">社交貨幣</span>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="layer"><span class="layer-label">L1</span><span class="layer-title">心理機制（情緒標題派：心動瞬間）</span>
+      <div class="layer-content">講「那個讓我心跳漏一拍的瞬間」—— 不一定是戀愛，可以是遇到對的合作、簽下夢想客戶、創作突破瞬間。賀爾蒙觸發的是普世的「心動感」，高完播。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L2</span><span class="layer-title">鉤子</span>
+      <div class="layer-content">結構：<strong>具體瞬間 + 感官細節</strong>。
+        <div class="hook">「我永遠記得那天開門的那一刻，<br>心跳快到我以為會暈過去。」</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L3</span><span class="layer-title">標題</span>
+      <div class="layer-content">公式：<strong>「心動瞬間」「那天我」「人生第一次」</strong>。
+        <div class="examples">
+          <div class="example"><div class="who">個人 IP</div>第一次被大品牌選上的那個瞬間，我全身起雞皮疙瘩</div>
+        </div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L4</span><span class="layer-title">七派</span>
+      <div class="fusion-stack">
+        <div class="fusion-row"><div class="who">高客單轉化派</div><div class="what">心動故事讓觀眾「投射自己」，建立情感連結後轉化率翻倍。</div></div>
+        <div class="fusion-row"><div class="who">品牌整合派</div><div class="what">心動要跟專業綁在一起——不是戀愛八卦，是「對專業的狂熱」。</div></div>
+        <div class="fusion-row"><div class="who">結構化顧問派</div><div class="what">結構：<strong>場景 → 五感細節 → 關鍵瞬間 → 後續影響</strong>。</div></div>
+        <div class="fusion-row"><div class="who">真實對話派</div><div class="what">感官細節（心跳、手汗、呼吸）讓人相信是真的。</div></div>
+        <div class="fusion-row"><div class="who">在地口語派</div><div class="what">「我到現在都記得」「整個人都飄起來」。</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L5</span><span class="layer-title">目標</span>
+      <div class="kpi-block">
+        <div class="kpi-item"><div class="k">主目標</div><div class="v">01 曝光</div></div>
+        <div class="kpi-item"><div class="k">副目標</div><div class="v">03 建立 IP</div></div>
+        <div class="kpi-item"><div class="k">核心 KPI</div><div class="v">完播率｜儲存率</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L6</span><span class="layer-title">範例</span>
+      <div class="examples">
+        <div class="example"><div class="who">律師</div>第一次贏官司那個瞬間，我在停車場哭了 10 分鐘</div>
+        <div class="example"><div class="who">個人 IP</div>那天試鏡完走出大樓，我知道人生要改變了</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L7</span><span class="layer-title">反問</span>
+      <div class="reflection">
+        <div class="q"><strong>品牌整合派：</strong>心動綁專業，不是八卦？</div>
+        <div class="q"><strong>真實對話派：</strong>感官細節夠真嗎？</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L8</span><span class="layer-title">踩雷</span>
+      <div class="trap"><span class="t">⚠</span>煽情過頭 → 變成通俗劇。</div>
+      <div class="trap"><span class="t">⚠</span>跟專業無關的八卦 → 稀釋品牌。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L9</span><span class="layer-title">提示詞</span>
+      <div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>【任務：說故事 × 賀爾蒙 腳本】
+客戶：【填入】
+心動瞬間：【填入真實經歷】
+長度：【45秒】
+
+請產出腳本：
+① 前3秒：具體瞬間 + 感官細節（心跳、手汗）
+② 中段：場景 → 五感細節 → 關鍵瞬間 → 後續影響
+③ 結尾：追蹤看我現在怎麼了
+④ 心動綁專業（不是戀愛八卦）
+⑤ 真實感官細節
+⑥ 在地口語：「我到現在都記得」</div>
+    </div>
+  </div>
+</div>
+
+<!-- 2-10 說故事 × 互動 -->
+<div class="card" id="card-2-10">
+  <div class="card-head">
+    <div>
+      <div class="card-id">CARD 2-10</div>
+      <div class="card-title">說故事 <span class="x">×</span> 互動</div>
+      <div class="card-tags">
+        <span class="tag goal">目標 06 詢問量</span>
+        <span class="tag">互動驅動</span>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="layer"><span class="layer-label">L1</span><span class="layer-title">心理機制（高客單轉化派：讓觀眾參與結局）</span>
+      <div class="layer-content">講到一半讓觀眾猜結局、或讓觀眾投票決定下集走向。互動會把觀眾從「看客」變成「參與者」，留言率、追蹤率都會大漲。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L2</span><span class="layer-title">鉤子</span>
+      <div class="layer-content">結構：<strong>故事鋪陳 + 直接提問</strong>。
+        <div class="hook">「故事講到這裡，你猜我怎麼做？<br>A 繼續談、B 直接走人。留言選。」</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L3</span><span class="layer-title">標題</span>
+      <div class="layer-content">公式：<strong>「你猜」「你選哪邊」「留言告訴我」</strong>。
+        <div class="examples"><div class="example"><div class="who">任何</div>故事講到一半讓你猜結局——你會怎麼做？</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L4</span><span class="layer-title">七派</span>
+      <div class="fusion-stack">
+        <div class="fusion-row"><div class="who">高客單轉化派</div><div class="what">觀眾一旦留言參與，追蹤轉換率大幅提升（因為他想看答案）。</div></div>
+        <div class="fusion-row"><div class="who">品牌整合派</div><div class="what">選項要有「你的專業角度」—— 觀眾在選的時候就在學你的思考框架。</div></div>
+        <div class="fusion-row"><div class="who">結構化顧問派</div><div class="what">A vs B 要 MECE，不要有第三種明顯答案漏掉。</div></div>
+        <div class="fusion-row"><div class="who">真實對話派</div><div class="what">一定要真的講結局（下一支或留言區）。失信一次，觀眾再也不留言。</div></div>
+        <div class="fusion-row"><div class="who">在地口語派</div><div class="what">「你幫我選」「我真的很糾結」—— 示弱比強勢更能拿互動。</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L5</span><span class="layer-title">目標</span>
+      <div class="kpi-block">
+        <div class="kpi-item"><div class="k">主目標</div><div class="v">06 詢問量</div></div>
+        <div class="kpi-item"><div class="k">副目標</div><div class="v">02 記憶點</div></div>
+        <div class="kpi-item"><div class="k">核心 KPI</div><div class="v">留言率｜追蹤率</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L6</span><span class="layer-title">範例</span>
+      <div class="examples">
+        <div class="example"><div class="who">律師</div>客戶要我包辦所有程序違規，A 接案 B 拒絕，你會怎樣？</div>
+        <div class="example"><div class="who">個人 IP</div>被邀請合作一個我不認同的品牌，A 接 B 拒，留言告訴我</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L7</span><span class="layer-title">反問</span>
+      <div class="reflection">
+        <div class="q"><strong>結構化顧問派：</strong>選項 MECE 嗎？</div>
+        <div class="q"><strong>真實對話派：</strong>會真的講結局嗎？</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L8</span><span class="layer-title">踩雷</span>
+      <div class="trap"><span class="t">⚠</span>問了不公布答案 → 失信，下次沒人玩。</div>
+      <div class="trap"><span class="t">⚠</span>選項太抽象 → 觀眾懶得想。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L9</span><span class="layer-title">提示詞</span>
+      <div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>【任務：說故事 × 互動 腳本】
+客戶：【填入】
+故事：【填入真實事件 + 兩個選擇點】
+長度：【45秒】
+
+請產出腳本：
+① 前3秒：故事鋪陳
+② 中段：發展到關鍵選擇點 → 暫停 → 提 A 或 B
+③ 結尾：留言選，下支公布結局
+④ 選項必須 MECE
+⑤ 承諾公布結局
+⑥ 示弱：「我真的很糾結」</div>
+    </div>
+  </div>
+</div>
+
+<!-- 2-11 說故事 × 隨機 -->
+<div class="card" id="card-2-11">
+  <div class="card-head">
+    <div>
+      <div class="card-id">CARD 2-11</div>
+      <div class="card-title">說故事 <span class="x">×</span> 隨機</div>
+      <div class="card-tags">
+        <span class="tag goal">目標 03 建立IP</span>
+        <span class="tag">互動驅動</span>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="layer"><span class="layer-label">L1</span><span class="layer-title">心理機制（真實對話派：命運感）</span>
+      <div class="layer-content">講「巧遇」故事—— 偶然遇到某個人、某個事件，改變了你的路。「命中注定」感會讓故事有戲劇張力，觀眾會想聽完。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L2</span><span class="layer-title">鉤子</span>
+      <div class="layer-content">結構：<strong>偶遇場景</strong>。
+        <div class="hook">「那天我本來不打算去那個聚會，<br>結果遇到的那個人改變我整個職業路。」</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L3</span><span class="layer-title">標題</span>
+      <div class="layer-content">公式：<strong>「巧遇」「沒想到」「那天如果我沒」</strong>。
+        <div class="examples"><div class="example"><div class="who">任何</div>如果那天我沒去那場活動，我的人生就不一樣了</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L4</span><span class="layer-title">七派</span>
+      <div class="fusion-stack">
+        <div class="fusion-row"><div class="who">高客單轉化派</div><div class="what">命運感故事讓觀眾覺得「追蹤你我也可能有這樣的機緣」。</div></div>
+        <div class="fusion-row"><div class="who">品牌整合派</div><div class="what">巧遇必須導向「這個偶然如何塑造現在的我」。</div></div>
+        <div class="fusion-row"><div class="who">結構化顧問派</div><div class="what">結構：<strong>本來不打算 → 巧遇 → 對話/事件 → 現在的影響</strong>。</div></div>
+        <div class="fusion-row"><div class="who">真實對話派</div><div class="what">巧遇的細節必須具體（時間地點天氣），太完美會顯得造假。</div></div>
+        <div class="fusion-row"><div class="who">在地口語派</div><div class="what">「命運真的很奇妙」「現在想起來」。</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L5</span><span class="layer-title">目標</span>
+      <div class="kpi-block">
+        <div class="kpi-item"><div class="k">主目標</div><div class="v">03 建立 IP</div></div>
+        <div class="kpi-item"><div class="k">核心 KPI</div><div class="v">完播率｜分享率</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L6</span><span class="layer-title">範例</span>
+      <div class="examples">
+        <div class="example"><div class="who">律師</div>那天我本來要請假，結果來了一個客戶⋯</div>
+        <div class="example"><div class="who">個人 IP</div>我在巴黎迷路那天，遇到了我現在最重要的合作夥伴</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L7</span><span class="layer-title">反問</span>
+      <div class="reflection">
+        <div class="q"><strong>品牌整合派：</strong>導向現在了嗎？</div>
+        <div class="q"><strong>真實對話派：</strong>細節夠具體嗎？</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L8</span><span class="layer-title">踩雷</span>
+      <div class="trap"><span class="t">⚠</span>巧遇太戲劇化 → 像編劇，不可信。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L9</span><span class="layer-title">提示詞</span>
+      <div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>【任務：說故事 × 隨機 腳本】
+客戶：【填入】
+巧遇故事：【填入真實經歷】
+長度：【45秒】
+
+請產出腳本：
+① 前3秒：偶遇場景 + 「本來不打算」的反差
+② 中段：本來不打算 → 巧遇 → 對話/事件 → 現在的影響
+③ 結尾：追蹤看更多故事
+④ 細節必須具體
+⑤ 導向現在的專業
+⑥ 在地口語：「命運真的很奇妙」</div>
+    </div>
+  </div>
+</div>
+
+<!-- 2-12 說故事 × 受眾鎖定 -->
+<div class="card" id="card-2-12">
+  <div class="card-head">
+    <div>
+      <div class="card-id">CARD 2-12</div>
+      <div class="card-title">說故事 <span class="x">×</span> 受眾鎖定</div>
+      <div class="card-tags">
+        <span class="tag goal">目標 07 轉單品質</span>
+        <span class="tag">互動驅動</span>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="layer"><span class="layer-label">L1</span><span class="layer-title">心理機制（高客單轉化派：對號入座）</span>
+      <div class="layer-content">講「你也是嗎？」的故事—— 描述一個具體角色的處境，讓特定觀眾覺得「這就是我」。越具體的受眾畫像，越容易精準吸引對的客戶。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L2</span><span class="layer-title">鉤子</span>
+      <div class="layer-content">結構：<strong>具體角色畫像</strong>。
+        <div class="hook">「40 歲、創業 8 年、員工超過 20 人——<br>你最近是不是常常失眠？」</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L3</span><span class="layer-title">標題</span>
+      <div class="layer-content">公式：<strong>「如果你是」「你也是嗎」「X 歲的你」</strong>。
+        <div class="examples"><div class="example"><div class="who">B2B</div>如果你是年營收 3000 萬以上的老闆，這故事你聽</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L4</span><span class="layer-title">七派</span>
+      <div class="fusion-stack">
+        <div class="fusion-row"><div class="who">高客單轉化派</div><div class="what">越精準鎖定，詢問品質越高。不要怕篩走觀眾。</div></div>
+        <div class="fusion-row"><div class="who">品牌整合派</div><div class="what">鎖定的畫像要跟你的高階客戶一致。</div></div>
+        <div class="fusion-row"><div class="who">結構化顧問派</div><div class="what">畫像條件：年齡 + 職位 + 痛點 + 情境。四個維度齊全。</div></div>
+        <div class="fusion-row"><div class="who">真實對話派</div><div class="what">說的痛點必須是那群人真的在煩的，不是你想像的。</div></div>
+        <div class="fusion-row"><div class="who">在地口語派</div><div class="what">「你最近是不是」「你跟我說」—— 像朋友關心。</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L5</span><span class="layer-title">目標</span>
+      <div class="kpi-block">
+        <div class="kpi-item"><div class="k">主目標</div><div class="v">07 轉單品質</div></div>
+        <div class="kpi-item"><div class="k">核心 KPI</div><div class="v">詢問品質｜成交率</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L6</span><span class="layer-title">範例</span>
+      <div class="examples">
+        <div class="example"><div class="who">律師</div>40 歲創業、員工 20 人的你，最近是不是為勞資問題失眠</div>
+        <div class="example"><div class="who">生醫</div>35-45 歲、有家族病史的你，有沒有這個打算</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L7</span><span class="layer-title">反問</span>
+      <div class="reflection">
+        <div class="q"><strong>結構化顧問派：</strong>畫像四維齊全嗎？</div>
+        <div class="q"><strong>真實對話派：</strong>痛點真實嗎？</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L8</span><span class="layer-title">踩雷</span>
+      <div class="trap"><span class="t">⚠</span>鎖定歧視性條件（性別 / 地域）→ 形象風險。</div>
+      <div class="trap"><span class="t">⚠</span>鎖定太窄 → 觸及太少。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L9</span><span class="layer-title">提示詞</span>
+      <div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>【任務：說故事 × 受眾鎖定 腳本】
+客戶：【填入】
+鎖定畫像：【年齡 / 職位 / 痛點 / 情境】
+長度：【45秒】
+
+請產出腳本：
+① 前3秒：具體角色畫像 + 痛點提問
+② 中段：為什麼他們會有這痛點 + 真實案例
+③ 結尾：篩選型 CTA
+④ 畫像四維齊全
+⑤ 痛點必須真實
+⑥ 不用歧視性條件</div>
+    </div>
+  </div>
+</div>
+
+<!-- 2-13 說故事 × 窺私慾 ★ -->
+<div class="card flagship" id="card-2-13">
+  <div class="card-head">
+    <div>
+      <div class="card-id">CARD 2-13</div>
+      <div class="card-title">說故事 <span class="x">×</span> 窺私慾 ★</div>
+      <div class="card-tags">
+        <span class="tag flag">★ 獨家觸發器</span>
+        <span class="tag goal">目標 03 建立IP</span>
+        <span class="tag">情緒扳機</span>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="layer"><span class="layer-label">L1</span><span class="layer-title">心理機制（極度求真派：自我揭露）</span>
+      <div class="layer-content">講「我平常不會跟別人說的故事」—— 一段失敗、一段情緒、一段掙扎。窺私慾是最強的黏著度觸發器，但風險也最高。適合想建立鐵粉 IP 的創作者。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L2</span><span class="layer-title">鉤子</span>
+      <div class="layer-content">結構：<strong>親密語氣 + 揭露暗示</strong>。
+        <div class="hook">「這件事我沒跟任何人說過，<br>今天第一次講。」</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L3</span><span class="layer-title">標題</span>
+      <div class="layer-content">公式：<strong>「沒跟任何人說」「第一次講」「不敢說的事」</strong>。
+        <div class="examples">
+          <div class="example"><div class="who">個人 IP</div>這件事我沒跟任何人說過，今天第一次分享</div>
+          <div class="example"><div class="who">專業人士</div>我這行不能說的秘密，今天破例講給你聽</div>
+        </div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L4</span><span class="layer-title">七派</span>
+      <div class="fusion-stack">
+        <div class="fusion-row"><div class="who">高客單轉化派</div><div class="what">自我揭露建立的信任感最強，但一個帳號一年不宜超過 2-3 支，太多會變心靈雞湯。</div></div>
+        <div class="fusion-row"><div class="who">品牌整合派</div><div class="what">揭露的內容必須跟你的專業有關，不是純私人八卦。</div></div>
+        <div class="fusion-row"><div class="who">結構化顧問派</div><div class="what">結構：<strong>為什麼一直沒說 → 現在為什麼想說 → 故事本身 → 這件事教我什麼</strong>。</div></div>
+        <div class="fusion-row"><div class="who">真實對話派</div><div class="what">必須真的第一次講。假的「從沒說過」一秒露餡。</div></div>
+        <div class="fusion-row"><div class="who">在地口語派</div><div class="what">「偷偷告訴你」「只跟你說喔」—— 親密耳語感。</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L5</span><span class="layer-title">目標</span>
+      <div class="kpi-block">
+        <div class="kpi-item"><div class="k">主目標</div><div class="v">03 建立個人 IP</div></div>
+        <div class="kpi-item"><div class="k">副目標</div><div class="v">05 建立信任</div></div>
+        <div class="kpi-item"><div class="k">核心 KPI</div><div class="v">追蹤率暴增｜儲存率</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L6</span><span class="layer-title">範例</span>
+      <div class="examples">
+        <div class="example"><div class="who">個人 IP</div>我決定轉型的那段低潮期，沒跟任何人說過</div>
+        <div class="example"><div class="who">律師</div>我這 15 年看過最震撼的一個案子，今天簡單講</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L7</span><span class="layer-title">反問</span>
+      <div class="reflection">
+        <div class="q"><strong>品牌整合派：</strong>跟專業有關嗎？</div>
+        <div class="q"><strong>極度求真派：</strong>真的沒說過嗎？</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L8</span><span class="layer-title">踩雷</span>
+      <div class="trap"><span class="t">⚠</span>一年超過 3 支 → 變心靈雞湯帳號。</div>
+      <div class="trap"><span class="t">⚠</span>醫師 / 律師過度揭露私人情緒 → 專業形象受損。</div>
+      <div class="trap"><span class="t">⚠</span>揭露涉及他人的事 → 侵犯對方。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L9</span><span class="layer-title">提示詞</span>
+      <div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>【任務：說故事 × 窺私慾 腳本】
+客戶：【填入】
+私密故事：【填入從沒公開的真實經歷】
+長度：【60秒】
+
+請產出腳本：
+① 前3秒：親密語氣「沒跟任何人說過」
+② 中段：為什麼一直沒說 → 現在為什麼說 → 故事 → 學到什麼
+③ 結尾：追蹤看更多真實的我
+④ 必須跟專業有關
+⑤ 真的第一次講
+⑥ 不涉及他人隱私
+⑦ 一年最多 3 支
+⑧ 在地口語：「偷偷告訴你」</div>
+    </div>
+  </div>
+</div>
+
+<!-- 2-14 說故事 × FOMO ★ -->
+<div class="card flagship" id="card-2-14">
+  <div class="card-head">
+    <div>
+      <div class="card-id">CARD 2-14</div>
+      <div class="card-title">說故事 <span class="x">×</span> FOMO 緊迫 ★</div>
+      <div class="card-tags">
+        <span class="tag flag">★ 獨家觸發器</span>
+        <span class="tag goal">目標 08 帶業績</span>
+        <span class="tag">情緒扳機</span>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="layer"><span class="layer-label">L1</span><span class="layer-title">心理機制（高客單轉化派：時間稀缺）</span>
+      <div class="layer-content">講「來不及的故事」—— 有人差一步就錯過、有人剛好來得及。時間稀缺性疊加故事，轉化力道最強。適合高客單、一生一次的服務。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L2</span><span class="layer-title">鉤子</span>
+      <div class="layer-content">結構：<strong>結局反推 + 時間警告</strong>。
+        <div class="hook">「她晚了 6 個月，失去整個案子。<br>我希望你不要跟她一樣。」</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L3</span><span class="layer-title">標題</span>
+      <div class="layer-content">公式：<strong>「來不及」「差一點」「如果當時」</strong>。情緒詞：懊悔、早知道、再一次機會。
+        <div class="examples">
+          <div class="example"><div class="who">律師</div>她晚了 3 個月才找我，整個案子救不回來</div>
+          <div class="example"><div class="who">生醫</div>他決定那天已經是最後一天，差一點就錯過</div>
+        </div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L4</span><span class="layer-title">七派</span>
+      <div class="fusion-stack">
+        <div class="fusion-row"><div class="who">高客單轉化派</div><div class="what">錯過型故事的轉化率 &gt; 成功型故事，因為損失厭惡比追求獲得更強。</div></div>
+        <div class="fusion-row"><div class="who">品牌整合派</div><div class="what">故事必須真實，不能編。編造的「差一點」觀眾會識破。</div></div>
+        <div class="fusion-row"><div class="who">結構化顧問派</div><div class="what">結構：<strong>她的狀況 → 她猶豫什麼 → 時間過去 → 結果 → 對你的警告</strong>。</div></div>
+        <div class="fusion-row"><div class="who">真實對話派</div><div class="what">具體時間線（3 個月、6 個月）比抽象「有點晚」更有力。</div></div>
+        <div class="fusion-row"><div class="who">在地口語派</div><div class="what">「我真的很想救她」「早知道就⋯」—— 真實懊悔語氣。</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L5</span><span class="layer-title">目標</span>
+      <div class="kpi-block">
+        <div class="kpi-item"><div class="k">主目標</div><div class="v">08 帶業績</div></div>
+        <div class="kpi-item"><div class="k">副目標</div><div class="v">06 詢問量</div></div>
+        <div class="kpi-item"><div class="k">核心 KPI</div><div class="v">CTR｜轉換率</div></div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L6</span><span class="layer-title">範例</span>
+      <div class="examples">
+        <div class="example"><div class="who">律師</div>她晚了 3 個月才找我，整個離婚財產權利喪失</div>
+        <div class="example"><div class="who">生醫</div>這個媽媽在最後一天決定，孩子的臍帶血保住了</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L7</span><span class="layer-title">反問</span>
+      <div class="reflection">
+        <div class="q"><strong>極度求真派：</strong>真的有這故事嗎？</div>
+        <div class="q"><strong>執行長：</strong>會不會太煽動？</div>
+      </div>
+    </div>
+    <div class="layer"><span class="layer-label">L8</span><span class="layer-title">踩雷</span>
+      <div class="trap"><span class="t">⚠</span>編造故事 → 被識破信任崩壞。</div>
+      <div class="trap"><span class="t">⚠</span>醫療廣告禁用「不救就來不及」 → 違反醫療法。</div>
+      <div class="trap"><span class="t">⚠</span>過度煽動 → 觀眾覺得在恐嚇。</div>
+    </div>
+    <div class="layer"><span class="layer-label">L9</span><span class="layer-title">提示詞</span>
+      <div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>【任務：說故事 × FOMO 腳本】
+客戶：【填入】
+錯過型故事：【填入真實案例 + 具體時間線】
+長度：【45秒 / 60秒】
+
+請產出腳本：
+① 前3秒：結局反推 + 時間警告
+② 中段：她的狀況 → 猶豫什麼 → 時間過去 → 結果 → 對你的警告
+③ 結尾：不要跟她一樣，現在就行動
+④ 必須是真實案例（匿名化）
+⑤ 具體時間線
+⑥ 醫療 / 律師避開法律紅線
+⑦ 不過度煽動
+⑧ 在地口語：「早知道就⋯」</div>
+    </div>
+  </div>
+</div>
+
+<!-- BATCH 2A INSERTION POINT - cards 2-8 to 2-14 will be inserted here next -->
+
+</div><!-- /cards-grid -->
+
+<div class="progress-badge">
+  ✦ 已完成 28 / 112 格（容器 ① 曬過程 14 + 容器 ② 說故事 14）｜下一批：容器 ③ 選立場 14 格
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <div class="brand">INSPIRE · CREATE · SHINE</div>
+  <div>Inspire. Create. Shine.</div>
+  <div style="margin-top: 12px;">Finding beauty. Making it move. · ICS 8×14 選題作戰矩陣 · 112 格完整作戰卡</div>
+</div>
+
+</div><!-- /wrap -->
+
+<script>
+function copyPrompt(btn) {
+  const block = btn.parentElement;
+  const text = block.innerText.replace('📋 複製', '').trim();
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = '✓ 已複製';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = '📋 複製';
+      btn.classList.remove('copied');
+    }, 2000);
+  }).catch(() => {
+    btn.textContent = '請手動複製';
+    setTimeout(() => { btn.textContent = '📋 複製'; }, 2000);
+  });
+}
+
+// Highlight nav on scroll
+document.querySelectorAll('.nav-btn').forEach(btn => {
+  btn.addEventListener('click', function(e) {
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+</script>
+
+</body>
+</html>
