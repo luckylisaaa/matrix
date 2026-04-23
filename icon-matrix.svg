@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGradM" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#B51E28"/>
+      <stop offset="100%" stop-color="#7A1018"/>
+    </linearGradient>
+    <linearGradient id="goldLineM" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D4A574" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#E8C999" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#D4A574" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" ry="112" fill="url(#bgGradM)"/>
+  <!-- Grid dots motif (3x3 minimal) -->
+  <g fill="#FDFBF8" opacity="0.18">
+    <circle cx="128" cy="128" r="5"/>
+    <circle cx="256" cy="128" r="5"/>
+    <circle cx="384" cy="128" r="5"/>
+    <circle cx="128" cy="256" r="5"/>
+    <circle cx="384" cy="256" r="5"/>
+    <circle cx="128" cy="384" r="5"/>
+    <circle cx="256" cy="384" r="5"/>
+    <circle cx="384" cy="384" r="5"/>
+  </g>
+  <!-- Large M -->
+  <text x="256" y="310"
+        font-family="'Noto Serif TC', 'Times New Roman', serif"
+        font-size="260"
+        font-weight="900"
+        fill="#FDFBF8"
+        text-anchor="middle">M</text>
+  <!-- Gold line -->
+  <line x1="180" y1="360" x2="332" y2="360" stroke="url(#goldLineM)" stroke-width="2"/>
+  <!-- Subtitle -->
+  <text x="256" y="400"
+        font-family="'Noto Serif TC', serif"
+        font-size="28"
+        font-weight="500"
+        fill="#FDFBF8"
+        text-anchor="middle"
+        letter-spacing="6"
+        opacity="0.85">MATRIX</text>
+</svg>

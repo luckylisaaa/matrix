@@ -4,6 +4,29 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ICS 8×14 選題作戰矩陣（112 格完整版）</title>
+
+<!-- PWA · 可安裝到手機桌面 -->
+<link rel="manifest" href="manifest-matrix.json">
+<meta name="theme-color" content="#A51820">
+<meta name="description" content="Inspire · Create · Shine ｜ 8×14 短影音選題作戰矩陣 · 融合七派頂尖方法論 · 112 格完整作戰卡">
+
+<!-- iOS · 加入主畫面 -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="ICS Matrix">
+<link rel="apple-touch-icon" href="icon-matrix-180.png">
+
+<!-- 瀏覽器分頁 icon -->
+<link rel="icon" type="image/png" sizes="32x32" href="icon-matrix-32.png">
+<link rel="icon" type="image/svg+xml" href="icon-matrix.svg">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-matrix-192.png">
+
+<!-- 分享連結時的預覽卡（OG） -->
+<meta property="og:title" content="ICS 8×14 選題作戰矩陣">
+<meta property="og:description" content="Inspire · Create · Shine ｜ 112 格完整作戰卡 · 融合七派頂尖方法論">
+<meta property="og:type" content="website">
+<meta property="og:image" content="icon-matrix-512.png">
+<meta name="twitter:card" content="summary_large_image">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -3468,6 +3491,15 @@ document.querySelectorAll('.nav-btn').forEach(btn => {
     this.classList.add('active');
   });
 });
+</script>
+
+<!-- PWA · 註冊 Service Worker 讓離線可用 -->
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  });
+}
 </script>
 
 </body>
